@@ -1,0 +1,85 @@
+.wrap{
+    width: 343px;
+    height: 480px;
+    background: url(img/bg.jpg);
+    margin: 50px auto;
+    position: relative;
+    font-size: 0;
+    overflow: hidden;
+}
+.score-wrap{
+    width: 100%;
+    position: absolute;
+    top: 40px;
+    text-align: center;
+}
+.grass{
+    font-size: 0;
+    width: 200%;
+    position: absolute;
+    bottom: 43px;
+    animation: grassmove 3s linear infinite;
+}
+.bird{
+    position: absolute;
+    left: 40px;
+    top: 200px;
+    width: 40px;
+    height: 26px;
+    background: url(img/bird0.png);
+    animation: birdfly 1s linear infinite;
+}
+.pipe{
+    position: absolute;
+    left: 343px;
+    top: 0;
+    width: 62px;
+    height: 423px;
+}
+.up, .low{
+    width: 100%;
+    height: 150px;
+    position: absolute;
+}
+.up{
+    background: url(img/up_mod.png);
+}
+.low{
+    bottom: 0;
+    background: url(img/down_mod.png); 
+}
+.up-head, .low-head{
+    width: 62px;
+    height: 60px;
+}
+.up-head{
+    position: absolute;
+    bottom: 0;
+    background: url(img/up_pipe.png);
+}
+.low-head{
+    background: url(img/down_pipe.png);
+}
+
+
+
+
+
+
+/* 草地动画 */
+@keyframes grassmove {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -343px;
+    }
+}
+@keyframes birdfly {
+    0% {
+        background: url(img/bird0.png);
+    }
+    100% {
+        background: url(img/bird1.png);
+    }
+}

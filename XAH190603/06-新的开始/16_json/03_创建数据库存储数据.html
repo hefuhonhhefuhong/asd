@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<body>
+    <script>
+        /*
+        创建数据库
+        indexdDB 对象是window 对象的子对象,提供了一系列对客户数据库indexdDB做操作的各种方式.
+        open 函数(打开或创建一个数据库):
+        如果没有该数据库,就会创建,否则打开.
+        参数 
+            (1) 要打开或者创建的数据库名称
+            (2) 要打开的数据库版本(每当添加或者删除数据表时更新,默认是 1)
+        */
+        var req = indexedDB.open('XAH190603', 1);
+        //打开数据库成功自动触发
+        req.onsuccess = function () {
+            console.log(1);
+        };
+
+        //数据库打开成功时,创建数据表
+        req.onupgradeneeded = function (e) {
+            //db包含了更新版本后操作数据库的方式
+            var db = e.target.result;
+            //数据库升级时自动调用,每次添加数据表都要升级,版本号 + 1
+            //{keyPath:'tel'} tel为主键
+            // {autoIncrement: true} 设置一个自增的主键
+            //创建数据表(createObjectStore 返回一个对象,包含对当前创建的这个数据表的一系列操作方式)
+            var store = db.createObjectStore('goodList', { autoIncrement: true });
+            //规定数据表的字段(例如: url,title,tips,price)
+            store.createIndex('url', 'url', { unique: false });
+            store.createIndex('title', 'title', { unique: false });
+            store.createIndex('tips', 'tips', { unique: false });
+            store.createIndex('price', 'price', { unique: false });
+            };
+            //打开失败自动触发
+            req.onerror = function () {
+            console.log('打开失败');
+            };
+    </script>
+</body>
+</html>

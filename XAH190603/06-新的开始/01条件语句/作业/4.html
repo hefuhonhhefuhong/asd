@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            background: skyblue;
+            width: 60px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            display: inline-block;
+            border:1px solid red;
+        }
+    </style>
+</head>
+<body>
+  <script>
+      var str='aasbbdfbabbbababbababaaaaaaaaa';
+      var arr=str.split('');
+      var time=0;
+      for(var i=0;i<arr.length;i++){
+          var num=arr[i];
+          t=0;
+          for(var j=0;j<arr.length;j++){
+              if(num==arr[j]){
+                  t++
+              }
+              if(t>time){
+                  time=t;
+                  t=0;
+                  var s=arr[i];
+              }
+          }
+      }
+      console.log(time,s);
+  </script>
+ <script>
+     var arr=[];
+     for(var i=0;i<10;i++){
+         var num=Math.round(Math.random()*10+10);
+         if(arr.indexOf(num)==-1){
+             arr.push(num);
+         }else {
+             i--
+         }
+     }
+     console.log(arr);
+ </script>
+<script>
+    var arr=[1,2,3,4,1,2,3,4];
+    var arr1=[];
+    for(var i=0;i<arr.length;i++){
+        var index=arr1.indexOf(arr[i]);
+        if(index==-1){
+            arr1.push(arr[i]);
+        }
+    }
+    console.log(arr1);
+</script>
+<script>
+    var arr=[12,23,222,324,1123,3242,45422,2,19238];
+    for(var i=0;i<arr.length;i++){
+        for(var j=0;j<arr.length-i-1;j++){
+            if(arr[j]<arr[j+1]){
+                var t=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=t;
+            }
+        }
+    }
+    console.log(arr);
+</script>
+<script>
+   var arr=[12,232,2,123,2432,122,343434,2346,1000];
+   for(var i=0;i<arr.length;i++){
+       for(var j=i;j<arr.length;j++){
+           if(arr[j]<arr[i]){
+               var t=arr[j];
+                arr[j]=arr[i];
+                arr[i]=t;
+           }
+       }
+   }
+   console.log(arr);
+</script>
+<script>
+    for(var i=1;i<=9;i++){
+         for(var j=1;j<=i;j++){
+            document.write('<div>'+j+"x"+i+"="+j*i+'</div>')
+         }
+         document.write('<br>')
+     }
+</script>
+
+</body>
+</html>

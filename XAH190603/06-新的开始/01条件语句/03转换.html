@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //隐式转换
+    "11"<5;//string=>number
+    "11"<"5"; //string=>ASCLL码
+    //显示转换
+    console.log("11");//字符串
+    console.log(Number("11"));//数字
+    console.log(5);//数字
+    console.log(String(5));//字符串
+    console.log( Boolean(1));//true
+    console.log( Boolean(0));//false
+    console.log(Boolean(12));//true
+
+    //null和undefined都是false
+    console.log(Boolean(null));//false
+    console.log(Boolean(undefined));//false
+
+     //字符串转布尔，有类容为true，无类容为false
+    console.log(Boolean('杨洋'));//true
+    console.log(Boolean(''));//false
+    console.log(Boolean(" "));//true
+
+</script>
+</html>

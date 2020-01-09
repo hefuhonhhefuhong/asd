@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap span{
+            width: 100px;
+            height: 30px;
+            border: 1px solid red;
+
+       box3{
+          border-bottom: none;
+       }
+    </style>
+</head>
+<body>
+ <div id="wrap"></div>
+ <div id="box4"></div>
+<script>
+    var wrap=document.querySelector('#wrap');
+    for(var i=1;i<=9;i++){
+        var box1=document.createElement('div');
+            box1.className='time';
+            wrap.appendChild(box1);
+        for(var j=1;j<=i;j++){
+            var box=document.createElement('span');
+            box1.appendChild(box);
+            box.className='time';
+            box.innerText=j+'x'+i+'='+i*j;
+           if(i<9){
+               box.classList.add('box3')
+           }
+            if(j=>1){
+                box.style.borderLeft='none';
+            }
+        }
+    }
+</script>
+<script>
+
+</script>
+</body>
+</html>

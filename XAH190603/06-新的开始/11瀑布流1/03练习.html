@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            position: relative;
+            margin: 0 auto;
+        }
+        .wrap img{
+            width: 200px;
+            position: absolute;
+            transition: 1s;
+        }
+
+    </style>
+</head>
+<body>
+ <div class="wrap"></div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    var heightArr=[];
+    //创建图片
+    function createImg() {
+        for(var i=0;i<60;i++){
+            var newImg=document.createElement('img');
+            newImg.src="img/"+i+".jpg";
+            wrap.appendChild(newImg)
+        }
+    }
+    createImg();
+    //获取图片的列数
+    function getCol() {
+       var num=document.documentElement.clientWidth;
+       var newNum=parseInt(num/210);
+       console.log(newNum)
+
+    }
+    getCol()
+</script>
+</body>
+</html>

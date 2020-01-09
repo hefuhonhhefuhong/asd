@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img{
+            border-radius: 10px;;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="box"></div>
+</div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    var box=document.querySelector('.box');
+    var goodList=[{
+        imgUrl:"img/1-1.png",
+        title:"6口味切换",
+        intr:"多口味，精装小份",
+        tags:['聚会','新品','人气','聚会'],
+        price:198.00,
+        bangs:440
+    }, {
+        imgUrl: "img/1-2.png",
+        title: "黑白巧克力",
+        intr: "白巧克力慕斯的甜，与黑巧克力的苦",
+        tags: ['聚会', '生日', '人气'],
+        price: 298.00,
+        bangs: 908
+    }];
+    //创建box
+    function fn(){
+       for (i in goodList.length){
+           var obj=goodList[i];
+           var box1=document.createElement('div');
+           box1.className='box1';
+           box.appendChild(box1);
+           box1.innerHTML=`<a><img src="`+obj.imgUrl+`"></a>`
+       }
+    }
+    fn();
+</script>
+</body>
+</html>

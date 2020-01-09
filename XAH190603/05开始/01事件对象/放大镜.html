@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      .wrap{
+          width: 350px;
+          height: 350px;
+          border: 1px solid red;
+          position: relative;
+          /*margin: 50px auto;*/
+      }
+      .small{
+          position: relative;
+          /*margin-left: 200px;*/
+      }
+      .small>img{
+          position: absolute;
+          left: 20px;
+          top: 20px;
+      }
+        .mask{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            /*display: none;*/
+            opacity: .5;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+        .big{
+            position: absolute;
+            left: 500px;
+            top:0px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="small">
+        <img src="3.png" width="300px"  class="img1">
+        <div class="mask"></div>
+    </div>
+    <div class="big">
+        <img src="4.jpg">
+    </div>
+</div>
+<script>
+     var img1=document.querySelector('.img1');
+     var small=document.querySelector('.small');
+     var mask=document.querySelector('.mask');
+     small.onmouseover=function (e) {
+         var e=e||window.event;
+         var dx=e.clientX;
+             dy=e.clientY;
+         small.onmousemove=function (e) {
+             var e=e||window.event;
+             var x=e.clientX-small.offsetLeft-mask.offsetWidth/2;
+                 y=e.clientY-small.offsetTop-mask.offsetHeight/2;
+             mask.style.left=x+'px';
+             mask.style.top=y+'px';
+             if(x<0){
+                 x=0;
+             }
+         }
+     };
+</script>
+</body>
+</html>

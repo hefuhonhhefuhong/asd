@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>开关灯练习</title>
+    <style>
+        html{
+            text-align: center;
+        }
+        #wrap{
+            width: 800px;
+            border: 1px solid #999;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        button{
+            margin: 0 10px;
+        }
+        #wrap div{
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+        }
+        button{
+            display: none;
+        }
+        input{
+            display: block;
+            border: 1px solid red;
+            width: 80px;
+            height: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            display: none;
+            margin: 0 auto;
+        }
+      #box1{
+          width: 300px;
+          height: 30px;
+          line-height: 30px;
+          background: yellow;
+          border: 1px solid red;
+          border-radius: 10px;
+          margin: 0 auto;
+
+      }
+        #box2{
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            background: yellow;
+            border: 1px solid red;
+            border-radius: 10px;
+            margin: 0 auto;
+
+        }
+        #tip{
+            width: 400px;
+            height: 25px;
+            border: 1px solid #000;
+            margin: 50px auto;
+            position: relative;
+
+        }
+        #tip1{
+            height: 25px;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: red;
+        }
+
+    </style>
+</head>
+<body>
+<div id="tip">
+    <div id="tip1">
+    </div>
+</div>
+<div id="wrap">
+</div>
+<div id="box">
+    <div id="box1">开始</div>
+    <div id="box2">自定义</div>
+</div>
+<button id="btn1">初级</button>
+<button id="btn2">中级</button>
+<button id="btn3">高级</button>
+
+<input type="text" value="" id="inp1">
+<input type="text" value="" id="inp2">
+<input type="text" value="" id="inp3">
+<input type="text" value="" id="inp4">
+<script>
+    // 获取元素
+    var wrap=document.querySelector('#box');
+    var box=document.querySelector('#box');
+    var box1=document.querySelector('#box1');
+    var box2=document.querySelector('#box2');
+    var wrap = document.querySelector('#wrap');
+    var btn1 = document.querySelector('#btn1');
+    var btn2 = document.querySelector('#btn2');
+    var btn3 = document.querySelector('#btn3');
+    var inp1=document.querySelector('#inp1');
+    var inp2=document.querySelector('#inp2');
+    var inp3=document.querySelector('#inp3');
+    var inp4=document.querySelector('#inp4');
+    var tip=document.querySelector('#tip');
+    var tip1=document.querySelector('#tip1');
+    // 行  列
+    var row = 5, col = 5;
+    // 宽  高
+    var w = 50, h = 50;
+    // 数组
+    var divArr = [];
+
+    // 创建小球
+    function createBox() {
+        // 大盒子的宽
+        wrap.style.width = col * w + 'px';
+        // 创建元素
+        for(var i = 0; i < (row * col); i++) {
+            var newBox = document.createElement('div');
+            // 增添样式
+            newBox.style.width = w + 'px';
+            newBox.style.heigth = h +'px';
+            // 创建数字标识
+            newBox.innerHTML = i;
+            // 加入页面
+            wrap.appendChild(newBox);
+            // 放入数组
+            divArr.push(newBox);
+        };
+    };
+    // createBox();
+    // 改变颜色的方法
+    function changeBg(xx) {
+        // 获取当前元素的颜色
+        var bg = getComputedStyle(xx).backgroundColor;
+        // 判断当前颜色改变
+        if(bg == 'rgb(0, 0, 0)') {
+            xx.style.backgroundColor = 'yellow';
+        } else {
+            xx.style.backgroundColor = 'black';
+        }
+    };
+    // 封装点击事件
+    function myClick() {
+        for(var j = 0; j < divArr.length; j++) {
+            // 绑定点击事件
+            divArr[j].onclick = function() {
+                // 点击时改变颜色
+                changeBg(this);
+                // 获取当前元素下标
+                var index = divArr.indexOf(this);
+                // 除过第一行
+                if(index > (col - 1)) {
+                    changeBg(divArr[index - col]);
+                }
+                // 除过最后一行
+                if(index < (row - 1) * col) {
+                    changeBg(divArr[index + col]);
+                }
+                // 除过第一列
+                if(index % col != 0) {
+                    changeBg(divArr[index - 1]);
+                }
+                // 除过最后一列
+                if((index + 1) % col != 0) {
+                    changeBg(divArr[index + 1]);
+                }
+            };
+        };
+    };
+    myClick();
+
+    // 初始化游戏
+    function restGame() {
+        wrap.innerHTML = '';
+        divArr = [];
+        createBox();
+        myClick();
+    }
+//开始游戏
+  box1.onclick=function(){
+      createBox();
+      myClick();
+      var num=tip1.offsetWidth;
+      var timer=setInterval(function () {
+          //盒子的宽度不断递减
+          tip1.style.width=(num--)+'px';
+          console.log(num);
+          // createBox();
+          btn1.style.display='inline-block';
+          btn2.style.display='inline-block';
+          btn3.style.display='inline-block';
+          box.style.display='none';
+          if(num==0){
+          clearInterval(timer);
+              restGame();
+          alert('结束了');
+
+          }
+      },10)
+  };
+    //自定义游戏
+    box2.onclick=function(){
+        var num=tip1.offsetWidth;
+        inp1.style.display='block';
+        inp2.style.display='block';
+        inp3.style.display='block';
+        inp4.style.display='block';
+        box1.style.display='none';
+        var a=inp1.value;
+        var b=inp2.value;
+        var c=inp3.value;
+        var d=inp4.value;
+        wrap.innerHTML = '';
+        divArr = [];
+        row=a;
+        col=b;
+        w=c;
+        h=d;
+        restGame();
+    };
+
+    // 初级
+    btn1.onclick = function() {
+        row = 5;
+        col = 5;
+        restGame();
+    };
+    btn2.onclick = function() {
+        row = 8;
+        col = 8;
+        restGame();
+    };
+    btn3.onclick = function() {
+        row = 15;
+        col = 15;
+        restGame();
+    }
+</script>
+</body>
+</html>

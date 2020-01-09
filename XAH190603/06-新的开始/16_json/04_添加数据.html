@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+<script>
+    //从指定数据库的某个表中查询一些信息
+    // 打开一个数据库(按照最后一个版本打开)
+    var req = indexedDB.open('XAH190603', 1);
+    //如果打开成功就向指定的数据表添加一信息
+    req.onsuccess = function (e) {
+        //当打开成功时自动执行
+        var db = e.target.result;//数据库操作对象
+        //打开一张数据表(读写方式打开)
+        var trans = db.transaction(['goodList'], 'readwrite');
+        //拿到数据表操作对象
+        var store = trans.objectStore('goodList');
+        //像数据表中添加一条数据
+        store.add({
+            url: '../img/2.png',
+            tips: '商品2',
+            title: '标题2',
+            price: '198'
+        });
+        console.log('添加数据');
+    };
+</script>
+</body>
+
+</html>

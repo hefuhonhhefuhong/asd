@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            background: red;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+    <!--tween.js是一个js动画的缓动效果插件，使用前要引入-->
+    <script src="../../碰撞检测/晚间作业/tween.js"></script>
+</head>
+<body>
+<div id="wrap"></div>
+</body>
+<script>
+    var wrap = document.getElementById('wrap');
+    var timer = null;
+        wrap.onclick = function () {
+            /*
+                tween.js的工作还是需要依赖于定时器setInterval
+
+                核心: t,b,c,d
+                t:表示开始步数
+                b:表示开始位置
+                c:表示该变量
+                d:表示总的步数
+
+               1、t和d共同决定了动画总共需要多少步完成，步数越多动画连贯越细致，一般情况下 t 的初始值都是0
+
+               2、b 和 c 相加的结果决定了动画结束时元素所在的位置(元素开始位置加上该变量就等于最后元素所在的位置)
+
+             */
+            var t = 0,//开始步数
+                b = wrap.offsetLeft,//开始位置
+                c = 1000,//该变量
+                d = 100;//总的步数
+            if(timer == null){
+                timer = setInterval(function () {
+                    t++;//步数累加
+                    if(t == d){
+                        //动画播放结束
+                        clearInterval(timer);
+                    }
+                    wrap.style.opacity = Tween.Bounce.easeInOut(t,b,c,d);
+                },20)
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //自己处理的加速效果
+    // var timer = null;
+    // speed = 3;
+    // wrap.onclick = function () {
+    //     if(!timer){
+    //         timer = setInterval(function () {
+    //             speed *= 1.1;
+    //            var s = wrap.offsetLeft + speed;
+    //            if(s >= 1000){
+    //                s = 1000;
+    //                clearInterval(timer);
+    //            }
+    //            wrap.style.left = s + 'px';
+    //         },20)
+    //     }
+    // }
+</script>
+</html>

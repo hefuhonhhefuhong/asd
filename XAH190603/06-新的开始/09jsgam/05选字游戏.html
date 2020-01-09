@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap{
+            width: 400px;
+            height: 500px;
+            border: 1px solid red;
+            margin: 0 auto;
+        }
+        #tops{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        #bigFont{
+            margin-top:30px;
+            font-size: 150px;
+            text-align: center;
+        }
+
+        #smallFont div{
+            font-size: 30px;
+            display: inline-block;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="tops">
+        <div id="tip">倒计时：10s</div>
+        <div id="score">得分：0</div>
+    </div>
+    <div id="bigFont"></div>
+    <p>根据上面字的颜色，从下面选择正确的字，选择正确自动开始计时</p>
+    <div id="smallFont">
+    </div>
+</div>
+<script>
+    var wrap=document.getElementById('wrap');
+    var tip=document.getElementById('tip');
+    var tip1=document.getElementById('tip1');
+    var bigFont=document.getElementById('bigFont');
+    var smallFont=document.getElementById('smallFont');
+    var fontArr=['红','蓝','黑','黄','粉'];
+    var colorArr=['red','blue','black','yellow','pink'];
+    var smallFontArr=[];
+    var scoreNum=0;
+    var flag=true;
+    var timer;
+    var time=10;
+    //随机数
+    function rn(min,max) {
+        return Math.round(Math.random()*(max-min)+min);
+    }
+    //随机数组
+    function rnNum() {
+       var arr=[];
+       for(var i=0;i<5;i++){
+           var num=rn(0,4);
+           if(arr.indexOf(num)==-1){
+               arr.push(num);
+           }else {
+               i--;
+           }
+       }
+       return arr;
+    }
+    //创建文字
+    function createFont() {
+        //大字
+        var a=rn(0,4);
+        var b=rn(0,4);
+        bigFont.innerText=fontArr[a];
+        bigFont.style.color=colorArr[b];
+        //小字
+        var c=rnNum(0,4);
+        var d=rnNum(0,4);
+        for(var j=0;j<c.length;j++){
+            var newFont=document.createElement('div');
+            smallFont.appendChild(newFont);
+            newFont.innerText=fontArr[c[j]];
+            newFont.style.color=colorArr[d[j]];
+            smallFontArr.push(newFont);
+        }
+    }
+    createFont();
+    //绑定点击事件
+    function clickFont() {
+        for(var i=0;i<smallFontArr.length;i++){
+            smallFontArr[i].onclick=function () {
+                var m=fontArr.indexOf(this.innerText);
+                console.log(m)
+                var n=colorArr.indexOf(bigFont.style.color);
+                if(m==n){
+                    scoreNum++;
+                    score.innerText='得分：'+scoreNum;
+                }else {
+                    scoreNum--;
+                    if(scoreNum<0){
+                        scoreNum=0;
+                    }
+                    score.innerText='得分：'+scoreNum;
+                }
+             if(flag){
+                timer=setInterval(function () {
+                    time--;
+                    tip.innerText='倒计时'+time;
+                },1000)
+             }
+            }
+        }
+    }
+    clickFont();
+
+</script>
+</body>
+</html>

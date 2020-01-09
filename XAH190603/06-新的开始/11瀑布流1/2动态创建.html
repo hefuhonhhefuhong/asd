@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            list-style: none;
+            padding: 20px;
+            display: flex;
+            border: 1px solid red;
+            justify-content: space-between;
+        }
+        li{
+            width: 210px;
+            list-style: none;
+
+
+        }
+        li div{
+            height: 100px;
+            background: red;
+            margin-bottom: 20px;
+            font-size:50px ;
+            text-align: center;
+
+        }
+    </style>
+</head>
+<body>
+<ul class="wrap">
+
+</ul>
+<script>
+    //获取元素
+    var wrap=document.querySelector('.wrap');
+    //承接li标签的数组
+    var liArr=[];
+    //承接高度的数组
+    var heightArr=[];
+    //创建li标签的函数
+    function createLi() {
+        //获取可视窗口的宽度
+        var windowsW=document.documentElement.clientWidth-58;
+        //获取创建Li标签的个数
+        var liNum=Math.floor(windowsW/210);
+        //循环创建li标签
+        for(var i=0;i<liNum;i++){
+            var newLi=document.createElement('li');
+            wrap.appendChild(newLi);
+            liArr.push(newLi);
+            //给高度数组赋初值
+            heightArr.push(0);
+        }
+    }
+    createLi();
+    //随机数函数
+    function rn(min,max) {
+        return Math.round(Math.random()*(max-min)+min);
+    }
+    //寻找最小下标的函数
+    function getMinIndex() {
+        var a=heightArr[0];
+       for(var i=0;i<heightArr.length;i++){
+           a=a>heightArr[i]?heightArr[i]:a
+       }
+       return heightArr.indexOf(a)
+    }
+    getMinIndex();
+    //循环创建
+    function createDiv(){
+        for(var i=0;i<40;i++){
+            var newDiv=document.createElement('div');
+            newDiv.innerText=i;
+            var heightNum=rn(100,300);
+            newDiv.style.height=heightNum+'px';
+            newDiv.style.lineHeight=heightNum+'px';
+            newDiv.style.background='#'+String(Math.random()).substr(2,6);
+            //寻找最小下标
+            var minIndex=getMinIndex();
+            liArr[minIndex].appendChild(newDiv);
+            heightArr[minIndex]+=heightNum+20;
+        }
+    }
+    createDiv();
+    //根据窗口动态获取宽度
+    window.onresize=function () {
+     //清空原有数组
+        wrap.innerText='';
+        heightArr=[];
+        liArr=[];
+        createLi();
+        createDiv()
+    };
+    //滚动加载新的元素
+    document.onscroll=function () {
+        //获取可视窗的高度
+            var windowH=document.documentElement.clientHeight;
+            var scrollNum=document.scrollingElement.scrollTop||document.body.scrollTop||window.pageYOffset;
+            //获取文档流的高度
+            var documentH=document.documentElement.scrollHeight;
+            if(windowH+scrollNum==documentH){
+                if(document.querySelectorAll('wrap div').length<=40){
+                    createDiv();
+                }
+            }
+
+    }
+</script>
+</body>
+</html>

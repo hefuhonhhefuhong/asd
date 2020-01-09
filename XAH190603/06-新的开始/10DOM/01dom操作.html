@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box1">
+    一行字
+</div>
+<div class="box2">两行字</div>
+<div class="box2">三行字</div>
+<input typeof="text" name="wo">
+<script>
+    //通过id获取
+    var box1=document.getElementById('box1');
+    //通过类名获取，获取的是一个集合，可以通过下标可以获取相应位置的元素
+    var box2=document.getElementsByClassName('box2');
+    console.log(box2[0]);
+    //获取集合，可以通过下标获取相应位置的元素
+    var box3=document.getElementsByTagName('div');
+    console.log(box3[2]);
+  //name属性获取，获取集合
+    var box4=document.getElementsByName('wo');
+    console.log(box4);
+    //通过css选择器获取，在满足多个的情况下，只获取第一个相应的元素
+    var box5=document.querySelector('div');
+    console.log(box5);
+    //集合，可以通过下标来获取相应的的元素
+    var box6=document.querySelectorAll('#box1 span');
+    console.log(box6);
+
+    /*
+    getElementById；通过id获取，单个元素
+    getElements系列，获取集合，通过下标获取相对应的元素
+     getElementsByClassName 类名
+     getElementsByTagName 标签名
+     getElementsByName  name属性
+     querySelector 单个
+     querySelectorAll 集合
+          */
+</script>
+</body>
+</html>

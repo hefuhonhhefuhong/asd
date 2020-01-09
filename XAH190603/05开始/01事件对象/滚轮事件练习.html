@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap{
+            width: 100px;
+            height: 100px;
+            margin-left: 200px;
+            background: yellow;
+            margin-top: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap"></div>
+</body>
+<script>
+    var wrap=document.querySelector('#wrap');
+    var bg=false;
+    wrap.ondblclick=function () {
+        if(bg){
+           this.style.transform='scale(1,1)'
+        }else{
+            this.style.transform='scale(2,2)'
+        }
+       bg=!bg;
+    };
+    var scale=1;
+    wheelEvent(wrap,function (dir) {
+       if(dir){
+           if(scale<3){
+               scale+=0.5;
+           }
+       } else {
+           if(scale>0.5){
+               scale-=0.1;
+           }
+       }
+       wrap.style.transform='scale('+scale+','+scale+')';
+    })
+</script>
+</html>

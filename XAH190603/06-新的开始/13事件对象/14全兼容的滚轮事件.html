@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //滚轮事件触发的函数
+    function wheelFn(ev) {
+        var e=ev||window.event;
+        if(e.detail>0||e.wheelDelta<0){
+            console.log('文档流向上')
+        }else {
+            console.log('文档流向下')
+        }
+    }
+    //浏览器的兼容
+    //ie的事件监听方法，DOM2级
+    if(document.attachEvent){
+        document.attachEvent("onmousewheel",wheelFn);
+    }else if(document.addEventListener){
+        //火狐
+        document.addEventListener("DOMouseScroll",wheelFn);
+        //非火狐
+        document.addEventListener("mousewheel",wheelFn);
+    }else {
+        //不支持DOM2的话，用dom0
+        document.onmousewheel=wheelFn;
+    }
+</script>
+</body>
+</html>

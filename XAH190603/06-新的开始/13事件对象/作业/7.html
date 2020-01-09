@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+        .wrap1{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            position: absolute;
+
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="wrap1"></div>
+</div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    var wrap1=document.querySelector('.wrap1');
+    wrap.onmousemove=function (ev) {
+       var e=ev||event;
+       var x=e.clientX-wrap1.offsetWidth/2;
+       var y=e.clientY-wrap1.offsetHeight/2;
+        if(x<=0||x>wrap.offsetWidth-wrap1.offsetWidth){
+            x=0;
+        }
+        if(y<=0||y>wrap.offsetHeight-wrap1.offsetWidth){
+            y=0;
+        }
+        wrap1.style.left=x+'px';
+        wrap1.style.top=y+'px';
+    }
+</script>
+</body>
+</html>

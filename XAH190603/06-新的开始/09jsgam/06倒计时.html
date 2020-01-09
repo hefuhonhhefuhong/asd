@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap{
+            width: 400px;
+            height: 100px;
+            border: 1px solid red;
+            margin: 0 auto;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+        }
+        #box1{
+            width: 100px;
+            height: 100%;
+            border: 1px solid yellow;
+            text-align: center;
+            line-height: 100px;
+
+        }
+        #box2{
+            width: 100px;
+            height: 100%;
+            border: 1px solid yellow;
+            text-align: center;
+            line-height: 100px;
+        }
+        #box3{
+            width: 100px;
+            height: 100%;
+            border: 1px solid yellow;
+            text-align: center;
+            line-height: 100px;
+            z-index: 100;
+        }
+        #box4{
+            width: 100px;
+            height: 100%;
+            border: 1px solid yellow;
+            text-align: center;
+            line-height: 100px;
+        }
+        #anniu{
+            text-align: center;
+            margin-top:20px;
+        }
+        #box{
+            width: 400px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        #anniu{
+            position: relative;
+        }
+       #btn1{
+           z-index: 100;
+           background: yellow;
+       }
+       #btn2{
+           z-index: 100;
+           background: #00F7DE;
+       }
+       #btn3{
+           position: absolute;
+           display: none;
+           margin-left:630px;
+           margin-top:-23px;
+           background: red;
+       }
+        #btn4{
+            position: absolute;
+            display: none;
+            margin-left:676px;
+            margin-top:-23px;
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="box1">00</div>
+    <div id="box2">00</div>
+    <div id="box3">00</div>
+    <div id="box4">000</div>
+</div>
+<div id="anniu">
+    <button id="btn1">启动</button>
+    <button id="btn2">复位</button>
+    <button id="btn3">计次</button>
+    <button id="btn4">停止</button>
+</div>
+<div id="box"></div>
+<script>
+    var wrap=document.querySelector('#wrap');
+    var box1=document.querySelector('#box1');
+    var box2=document.querySelector('#box2');
+    var box3=document.querySelector('#box3');
+    var box4=document.querySelector('#box4');
+    var btn1=document.querySelector('#btn1');
+    var btn2=document.querySelector('#btn2');
+    var btn3=document.querySelector('#btn3');
+    var btn4=document.querySelector('#btn4');
+    //毫秒
+    var ms='000';
+    //秒
+    var second='00';
+    //分
+    var minute='00';
+    //时
+    var hour='00';
+    var timer;
+    //计算时分秒
+    console.log(second);
+    function fn() {
+        //写一个初始变量
+        var num=0;
+        //创建计时器
+        timer = setInterval(function() {
+            num+= 9;
+            if(num < 10) {
+                // 毫秒的变化
+                ms = "00" + num;
+            } else if(num < 100) {
+                ms = "0" + num;
+            } else if(num < 1000){
+                ms = num;
+            } else {
+                second++;
+                console.log(second);
+                num = 0;
+                // 秒的变化
+                if(second < 10) {
+                    second = "0" + second;
+                } else if(second < 60){
+                    second = second;
+                } else {
+                    second = 0;
+                    minute++;
+                    // 分钟的变化
+                    if(minute < 10) {
+                        minute = "0" + minute;
+                    } else if(minute < 60) {
+                        minute = minute;
+                    } else {
+                        minute = 0;
+                        hour++;
+                        // 小时的变化
+                        if(hour < 10) {
+                            hour = "0" + hour;
+                        } else if(hour < 24) {
+                            hour = hour;
+                        } else {
+                            hour = 0;
+                        }
+                    }
+                }
+            }
+            box4.innerText = ms;
+            box3.innerText = second ;
+            box2.innerText = minute ;
+            box1.innerText = hour ;
+        }, 10)
+    }
+    // fn();
+    //启动
+    btn1.onclick=function(){
+     fn();
+        btn3.style.display='block';
+        btn4.style.display='block';
+    };
+    //复位
+    btn2.onclick=function () {
+
+        clearInterval(timer);
+        box4.innerText = '000';
+        box3.innerText = '00' ;
+        box2.innerText = '00' ;
+        box1.innerText = '00' ;
+        box.innerText='';
+    };
+    //计次
+    btn3.onclick=function () {
+    var newBox=document.createElement('div');
+     box.appendChild(newBox);
+     newBox.innerText=hour+':'+minute+':'+second+':'+ms;
+    };
+    //结束
+    btn4.onclick=function () {
+        clearInterval(timer);
+        btn3.style.display='none';
+        btn4.style.display='none';
+    }
+</script>
+</body>
+</html>

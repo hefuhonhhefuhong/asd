@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+       *{
+           margin: 0;
+           padding: 0;
+       }
+       html,body{
+           height: 100%;overflow: hidden;
+       }
+      #pen{
+          width: 103px;
+          height: 48px;
+          position: absolute;
+          bottom: 50px;
+          left: 200px;
+      }
+        .mony{
+            width: 40px;
+            height: 40px;
+            position: relative;
+            top: -100px;
+        }
+        h1{
+            text-align: center;
+            font-size: 40px;
+
+        }
+    </style>
+
+</head>
+<body>
+<img src="../../06-新的开始/13事件对象/2.png" id="pen">
+<h1 id="sel">0</h1>
+</body>
+<script>
+   var pen=document.querySelector('#pen');
+   var ch=document.documentElement.clientHeight;
+   var pW=document.documentElement.clientWidth-pen.offsetWidth;
+   var mW=document.documentElement.clientWidth - 80;
+   var sel=document.querySelector('#sel');
+   var score=0;
+   var pt=pen.offsetTop;
+   var l=false,r=false;
+createMoney(rn(200,3000));
+
+   //金币掉落
+   function createMoney(time){
+       setInterval(function () {
+           var money=new Image();
+           document.body.appendChild(money);
+           money.className='money';
+           money.src='1.png';
+           money.style.left=rn(10,mW-10)+'px';
+           money.sp=(1,10);
+           money.lock=false;
+           money.down=setInterval(function () {
+               var mt = money.offsetTop + money.sp;
+               var ml=money.offsetLeft;
+                   mr=money.offsetLeft+money.offsetWidth;
+                   md=money.offsetHeight+mt;
+                   pl=pen.offsetLeft;
+                   pr=pen.offsetLeft+pen.offsetWidth;
+               //判断与碰的关系
+
+               if(pt<=md){
+                   if(pl<ml&&pr>mr!money.lock){
+                       //等分
+                       score++;
+                       sel.innerHTML=score;
+                       //关定时器
+                       clearInterval(money.down);
+                       //消失
+                       money.remove();
+                   }
+                   money.lock=true;
+               }
+               money.style.top=mt+'px';
+               if(pt<=md&&pl<ml&&pr>mr){
+
+               }else{
+                   if(mt>=ch){
+                       clearInterval(money.down);
+                       money.remove();
+                   }
+               }
+           },20)
+       },time);
+   }
+
+
+   //盆的运动
+    document.onkeydown=function (ev) {
+       var e=ev||window.event;
+       var kc=e.keyCode;
+       var pl=pen.offsetLeft;
+       switch (kc) {
+           case 37 :
+              //左
+              l=true;
+              r=false
+               break;
+           case 39:
+               //右
+             r=true;
+             l=false;
+               break;
+       }
+
+    };
+   document.onkeydown=function (e) {
+       var e=e||window.event;
+       switch (e.keyCode) {
+           case 37:
+               l=false;
+               break;
+           case 39:
+               r=false;
+               break;
+       }
+   };
+   var timer = setInterval(function () {
+       var pl=pen.offsetLeft;
+       if(l){
+           pl-=1;
+           pl=pl<0?0:pl;
+       }
+       if(r){
+           pl+=1;
+           pl=pl>pW?pW:pl;
+       }
+       pen.style.left=pl+'px';
+   },20);
+    function rn(x,y) {
+     return Math.round(Math.random()*(y-x)+x);
+    }
+</script>
+</html>

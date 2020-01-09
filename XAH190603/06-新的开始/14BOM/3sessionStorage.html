@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //存储数据
+    sessionStorage.name="李白";
+    sessionStorage['象棋']="将军";
+    sessionStorage.setItem("赵琳","以后再也不迟到了");
+    //取数据
+    console.log(sessionStorage.name);
+    console.log(sessionStorage["赵琳"]);
+    console.log(sessionStorage.getItem("象棋"));
+    //删除
+    sessionStorage.removeItem("name");
+    sessionStorage.clear();
+
+    /*
+    保存在浏览器中的储存方式
+    cookie会随着http请求被携带
+    1储存大小不一样，cookie是4k,localStorage和sessionStorage是5m
+    2 数据的有效期不同，cookie也是长久存在的，除非设置清除，必须在有域名支持的情况下储存，localStorage,长期有效，关闭窗口不会清除数据，除非主动清除
+    sessionStorage,只在当前窗口关闭前有效，不能长期保存
+    3作用域的不同，sessionStorage不能在不同的浏览器页面中共享，localStorage,cookie可以在同源的窗口中共享
+    注意
+    不可暴露的信息是不可以存储在浏览器中的，会增加安全风险
+     */
+</script>
+</body>
+</html>

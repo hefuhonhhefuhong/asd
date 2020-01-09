@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //onkeydown按下任意键触发
+    document.onkeydown=function (ev) {
+       //事件对象
+       var e=ev||window.event;
+       console.log(e);
+    }
+    //onkeypress按下字符键触发，区分大小写
+    document.onkeypress=function (en) {
+        var ee=en||event
+        console.log(2,ee)
+    }
+    //onkeyup;抬起按键触发
+    document.onkeyup=function () {
+        console.log('哈哈')
+    }
+</script>
+</body>
+</html>

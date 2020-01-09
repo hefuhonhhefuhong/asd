@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+//获取元素
+    var box =document.querySelector('#box');
+    //给合子设置背景颜色
+        box.style.backgroundColor='red';
+    //给box绑定点击事件
+    //     box.onclick=function () {
+    //     //获取当前合子的背景颜色
+    //       var boxBg=box.style.backgroundColor;
+    //       if(boxBg=='red'){
+    //           box.style.backgroundColor='yellow';
+    //       }else {
+    //           box.style.backgroundColor='red';
+    //       }
+          // if(boxBg=='yellow'){
+          //     box.style.backgroundColor='red';
+          // }
+    // }
+
+    //第三种方法
+//旗帜
+  var flag=true;
+    box.onclick=function () {
+        //合子是红色
+        if(flag){
+            box.style.backgroundColor='yellow';
+            flag=false;
+        }else {
+
+            box.style.backgroundColor='red';
+            flag=true;
+        }
+    }
+</script>
+</body>
+</html>

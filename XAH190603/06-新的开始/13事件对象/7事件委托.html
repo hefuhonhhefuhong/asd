@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul class="wrap">
+    <li>窝窝头</li>
+    <li>一款钱4个</li>
+    <li>嘿嘿</li>
+</ul>
+<script>
+    //获取元素
+    var wrap=document.querySelector('.wrap');
+    //绑定点击事件
+    wrap.onclick=function (ev) {
+        //事件对象
+        var e=ev||event;
+        console.log(e);
+        console.log(e.target.innerText);
+    }
+    /*
+    事件委托
+    将应该绑定给每个子集元素的事件，绑定给父级元素，点击父级元素可以出发事件对象，可以通过target的
+    方法来获取到触发父级事件的具体子集元素，并且对她做出相应的操作
+     */
+</script>
+</body>
+</html>

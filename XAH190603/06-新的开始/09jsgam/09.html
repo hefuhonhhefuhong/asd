@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #wrap div{
+            border: 1px solid red;
+            background: black;
+            display: inline-block;
+            border-radius: 50%;
+            box-sizing: border-box;
+            text-align: center;
+            color: white;
+
+        }
+    </style>
+</head>
+<body>
+<div id="wrap"></div>
+<button id="btn1">初级</button>
+<button id="btn2">中级</button>
+<button id="btn3">高级</button>
+<script>
+    var wrap=document.querySelector('#wrap');
+    var btn1=document.querySelector('#btn1');
+    var btn2=document.querySelector('#btn2');
+    var btn3=document.querySelector('#btn3');
+    var row=6;col=6;
+    var w=50;h=50;
+    var ballArr=[];
+    //循环创建小球
+    function creatBall() {
+        wrap.style.width=row*w+'px';
+        for(var i=0;i<row*col;i++){
+            var newBox=document.createElement('div');
+             newBox.style.width=w+'px';
+             newBox.style.width=h+'px';
+             wrap.appendChild(newBox);
+             ballArr.push(newBox);
+             newBox.innerText=i;
+
+        }
+    }
+    creatBall();
+    //改变背景颜色
+    function changeBg(xx) {
+        var bg=getComputedStyle(xx).backgroundColor;
+
+        if(bg=="rgb(0, 0, 0)"){
+            xx.style.background='yellow';
+        }else {
+            xx.style.background='black';
+        }
+    }
+
+   //绑定点击事件
+    function click() {
+      for(var j=0;j<ballArr.length;j++){
+          ballArr[j].onclick=function () {
+              changeBg(this);
+              var index=ballArr.indexOf(this);
+              //最左边
+              if(index%col!==0){
+                  changeBg(ballArr[index-1])
+              }
+              //最右边
+              if((index+1)%(col)!==0){
+                  changeBg(ballArr[index+1]);
+                  console.log(index+1)
+              }
+              //最上边
+              if(index>col){
+                  changeBg(ballArr[index-col])
+
+              }
+              //最下边
+              if(index<(row-1)*col){
+                  changeBg(ballArr[index+col])
+              }
+          };
+
+      }
+    }
+    click();
+    //重置游戏
+    function page(){
+        wrap.innerText="";
+        ballArr=[];
+        creatBall();
+        click();
+    }
+    //初级
+    btn1.onclick=function () {
+       row=8;
+       col=8;
+       page();
+    };
+    btn2.onclick=function () {
+        row=10;
+        col=10;
+        page();
+    };
+    btn3.onclick=function () {
+        row=12;
+        col=12;
+        page();
+    };
+</script>
+</body>
+</html>

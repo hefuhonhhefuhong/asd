@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @keyframes upDown {
+            0%{
+                top:0px;
+            }
+            50%{
+                top:50px
+
+
+            }
+            100%{
+                top: 0px;
+            }
+        }
+        /*鸟换图片*/
+        @keyframes birdWing{
+            0%{
+                background: url("img/bird0.png") 0 0 no-repeat;
+            }
+            100%{
+                background: url("img/bird1.png")0 0 no-repeat;
+            }
+        }
+        /*       !*草地移动*!*/
+        @keyframes grassMove {
+            0%{
+                transform: translateX(0);
+            }
+            100%{
+                transform: translateX(-50%);
+            }
+        }
+        .wrap{
+            width: 343px;
+            height: 480px;
+            background: url("img/bg.jpg")0 0 no-repeat;
+            position: relative;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        /*    开始界面*/
+        .startCon{
+            position: absolute;
+            width: 100%;
+            top: 100px;
+            /*display: none;*/
+        }
+        /*    活动的动画*/
+        .startTitle{
+            position: absolute;
+            width: 100%;
+            height: 80px;
+            left: 30px;
+            background: url("img/head.jpg")0 0 no-repeat;
+            animation: upDown 1s  linear infinite;
+        }
+        /*    鸟*/
+        .startBird{
+            width: 40px;
+            height: 26px;
+            background: url("img/bird0.png")0 0 no-repeat;
+            position: absolute;
+            left: 240px;
+            animation: birdWing 2s linear infinite;
+        }
+        /*    开始界面的按钮*/
+        .startBtns{
+            margin-top:150px;
+            display: flex;
+            justify-content: space-around;
+        }
+        /*草地*/
+        .grass{
+            display: flex;
+            justify-content: flex-start;
+            position: absolute;
+            bottom: 43px;
+            animation: grassMove 2s linear infinite;
+        }
+        .bird{
+            width: 40px;
+            height: 26px;
+            background: url("img/bird0.png") 0 0 no-repeat;
+            position: absolute;
+            left: 50px;
+            top: 20px;
+            animation: birdWing 2s linear infinite;
+            display: none;
+        }
+        .pipeCon{
+            position: absolute;
+            width: 62px;
+            height:100%;
+            left: 350px;
+        }
+        .pipeUp,.pipeDown{
+            height: 100px;
+            position: absolute;
+            width: 100%;
+        }
+        .pipeUp{
+            background: url("img/up_mod.png")0 0 repeat;
+            top:0;
+        }
+        .pipeDown{
+            background: url("img/down_mod.png")0 0 repeat;
+            bottom: 57px;
+        }
+        /*    管道头的样式*/
+        .headUp,.headDown{
+            width: 62px;
+            height: 60px;
+            position: absolute;
+        }
+        .headUp{
+            background: url("img/up_pipe.png") 0 0 no-repeat;
+            bottom: 0;
+        }
+        .headDown{
+            background: url("img/down_pipe.png")0 0 no-repeat;
+            top: 0;
+        }
+        .box{
+            position: relative;
+            width: 343px;
+            height: 480px;
+            top: -580px;
+            left: 500px;
+            display: none;
+
+        }
+        .box img:nth-child(1){
+           position: absolute;
+            top: 150px;
+            left: 40px;
+        }
+        .btn2{
+            position: absolute;
+            top: 330px;
+            left: 120px;
+        }
+        .score{
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            margin-left: 130px;
+            display: none;
+            z-index: 10;
+        }
+        .score1{
+            display: inline-block;
+        }
+        .score2{
+         display: inline-block;
+        }
+        .box1{
+            display: flex;
+            justify-content: space-around;
+            position: relative;
+            width: 50px;
+            height: 25px;
+            border: 1px solid red;
+            top: -874px;
+            left: 735px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+<!--    分数-->
+    <div class="score">
+        <div class="score1">
+            <img src="img/0.jpg">
+        </div>
+        <div class="score2">
+            <img src="img/0.png">
+        </div>
+    </div>
+    <!--   开始界面-->
+    <div class="startCon">
+        <!--        活动的动画-->
+        <div class="startTitle">
+            <!--          鸟-->
+            <div class="startBird"></div>
+        </div>
+        <!--        按钮-->
+        <div class="startBtns">
+            <img src="img/start.jpg" class="btn1">
+            <img src="img/submit.jpg">
+        </div>
+    </div>
+
+    <!--     草地-->
+    <div class="grass">
+        <img src="img/banner.jpg">
+        <img src="img/banner.jpg">
+    </div>
+    <!--    鸟-->
+    <div class="bird"></div>
+    <!--    管道的样式-->
+</div>
+<div class="box">
+    <img src="img/message.jpg">
+    <img src="img/ok.jpg" class="btn2">
+</div>
+    <div class="box1"></div>
+<script>
+    /*
+    1获取元素
+    2鸟下降和上升的函数
+    3动态创建管道
+    4管道移动
+    5碰撞检测
+    6记录得分，展示在页面中
+    7结束游戏，显示在结束界面
+     */
+    //获取元素
+    var wrap=document.querySelector('.wrap');
+    var bird=document.querySelector('.bird');
+    var startCon=document.querySelector('.startCon');
+    var startBtns=document.querySelector('.startBtns');
+    var btn1=document.querySelector('.btn1');
+    var box=document.querySelector('.box');
+    var btn2=document.querySelector('.btn2');
+    var score=document.querySelector('.score');
+    var score2=document.querySelector('.score2');
+    var score1=document.querySelector('.score1');
+    var box1=document.querySelector('.box1');
+    var downTimer; //鸟下落的计时器
+    var upTimer;//鸟上升
+    var createPipeTimer; //创建管道计时器
+    var movePipeTimer;//管道移动计时器
+    var pipeArr=[];//管道数组
+    var time=0;
+    var time1=0;
+    //开始界面
+
+    //小鸟掉落的函数
+    function birdDown() {
+        downTimer =setInterval(function () {
+            //获取鸟的高度
+            var nowTop = bird.offsetTop;
+            bird.style.top=nowTop+1+'px';
+            //如果超出下边界计时器停止
+            //主界面的高度-
+            if(bird.offsetTop>=397){
+                //清除计时器
+                clearInterval(downTimer);
+            }
+        },10)
+    }
+    //小鸟上升
+    function birdUp() {
+       //清除鸟下降的计时器
+       clearInterval(downTimer);
+       clearInterval(upTimer);
+        //获取鸟的top值
+        var nowTop=bird.offsetTop;
+        var topNum=nowTop - 30;
+       upTimer=setInterval(function () {
+           //声明鸟上升的距离
+           bird.style.top=bird.offsetTop-1+'px';
+           //判断鸟到达上升的距离或超出边界
+           if(bird.offsetTop<=topNum||bird.offsetTop<=0){
+               clearInterval(upTimer);
+               birdDown();
+           }
+       },10)
+    }
+    wrap.onclick=birdUp;
+    //随机数
+    function rn(min,max) {
+     return Math.round(Math.random()*(max-min)+min);
+    }
+    //创建管道
+    function createPipe() {
+        //创建最大的管道
+        var pipe=document.createElement('div');
+        pipe.className='pipeCon';
+        //上半截管道的随机高度
+        var topHeight=rn(60,200);
+        var bottomHeight=300-topHeight;
+        //创建中间的管道
+       pipe.innerHTML= `
+        <div class="pipeUp" style="height: ` + topHeight + `px;">
+            <div class="headUp"></div>
+        </div>
+        <div class="pipeDown" style="height: ` + bottomHeight + `px;">
+            <div class="headDown"></div>
+        </div>
+    `;
+       //将管道放入页面中
+        wrap.appendChild(pipe);
+        //将管道返回
+        pipeArr.push(pipe);
+    }
+    createPipe();
+    //管道移动的函数
+    function movePipe() {
+        //循环数组
+        for(var i=0;i<pipeArr.length;i++){
+            pipeArr[i].style.left=pipeArr[i].offsetLeft-1+'px';
+            if(pipeArr[i].offsetLeft==-pipeArr[i].offsetWidth) {
+                console.log(pipeArr[i].offsetWidth);
+                time++;
+                var el = '<img src="img/'+ time +'.jpg">';
+                score2.innerHTML=el;
+                if(time==9) {
+                    time = 0;
+                    time1++;
+                    var ell = '<img src="img/' + time1 + '.jpg">';
+                    score1.innerHTML = ell;
+                }
+            }
+            //碰撞检测
+            //上管道
+           var result1=crashPipe(pipeArr[i].firstElementChild);
+            //下管道
+           var result2=crashPipe( pipeArr[i].lastElementChild);
+           //碰撞检测成功
+            if(result1||result2){
+                //暂停所有计时器
+                clearInterval(downTimer);
+                clearInterval(upTimer);
+                clearInterval(createPipeTimer);
+                clearInterval(movePipeTimer);
+                //清除点击事件
+                wrap.onclick=null;
+                //清除鸟
+              overGame();
+
+            }
+            //检测管道移出页面
+           if(pipeArr[i].offsetLeft<=-62){
+               //清除这个管道
+               pipeArr[i].remove();
+               //从头部删除
+               pipeArr.shift();
+               i--;
+           }
+        }
+    }
+    //碰撞检测的函数
+    function crashPipe(xx) {
+        //进行碰撞检测
+        var t=bird.offsetTop+bird.offsetHeight>=xx.offsetTop;
+        var b=xx.offsetTop+xx.offsetHeight>=bird.offsetTop;
+        //用父级的管道判断左右的值
+        var l=xx.parentNode.offsetLeft<=bird.offsetLeft+bird.offsetWidth;
+        var r=bird.offsetLeft<=xx.parentNode.offsetLeft+xx.offsetWidth;
+        //证明碰撞上了
+        if(t&&b&&l&&r){
+            return true;
+        }
+    }
+    btn1.onclick=function () {
+        startCon.style.display='none';
+        bird.style.display='block';
+        score.style.display='block';
+        birdDown();
+        //创建管道
+        createPipeTimer=setInterval(createPipe,2000);
+        //移动管道
+        movePipeTimer=setInterval(movePipe,10);
+    };
+    btn2.onclick=function () {
+        box.style.display='none';
+        bird.style.display='block';
+        birdDown();
+        birdUp();
+        wrap.onclick=birdUp;
+        movePipe();
+        createPipeTimer=setInterval(createPipe,2000);
+        //移动管道
+        movePipeTimer=setInterval(movePipe,10);
+        box1.innerHTML=score1.innerHTML+score2.innerHTML;
+    };
+    function overGame() {
+        var pipeCon=document.querySelector('.pipeCon');
+        pipeCon.remove();
+        box1.innerHTML=score1.innerHTML+score2.innerHTML;
+        score1.innerHTML='';
+        score2.innerHTML='';
+        // 结束页面出现
+        box.style.display='block';
+        bird.style.display='none';
+
+    }
+</script>
+</body>
+</html>

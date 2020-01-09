@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            overflow: hidden;
+        }
+        .pen{
+            width: 100px;
+            height: 50px;
+            background: url("2.png")0 0 no-repeat;
+            background-size:cover ;
+            position: fixed;
+            bottom: 0;
+        }
+        img{
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: -80px;
+        }
+    </style>
+</head>
+<body>
+<div class="pen"></div>
+<script>
+    /*
+    1先创建金币
+    2让金币移动
+    3碰撞检测
+    4检测完成，金币消失
+    5万移动
+     */
+    var pen=document.querySelector('.pen');
+    var body=document.querySelector('body');
+    var coinArr=[]; //金币数组
+    //随机数据
+    function rn(x,y){
+        return Math.round(Math.random()*(y-x)+x)
+    }
+    //创建金币
+    function createCoin() {
+       var money=document.createElement('div');
+       //图片路径
+       //  money.src="1.png";
+        money.className='box';
+        //设置left值
+        var a=document.documentElement.clientWidth-money.offsetWidth;
+        money.style.left=rn(0,a)+'px';
+        //将金币放入页面中
+        body.appendChild(money);
+        coinArr.push(money);
+    }
+    // createCoin();
+    //金币掉落的函数
+    function coinDown() {
+        for(var i=0;i<coinArr.length;i++){
+            //改变金币的top值
+            coinArr[i].style.top=coinArr[i].offsetTop+10+'px';
+            //判断金币掉落出页面
+            if(coinArr[i].offsetTop>document.documentElement.clientHeight){
+                //让金币消失
+                console.log(coinArr);
+                coinArr[i].remove();
+                //在数组里删除
+                coinArr.splice(i,1);
+                //防止漏洞循环
+                i--;
+            }
+        }
+    }
+    // coinDown();
+    //金币掉落的计时器
+    var j=0;
+    function gameStart() {
+
+       // var timer=setInterval(function () {
+       //     //创建金币
+       //     createCoin();
+       //
+       // },1000);
+       //  var timer2=setInterval(function () {
+       //      //金币掉落
+       //      coinDown();
+       //      //碰撞检测
+       //       for(var item of coinArr){
+       //           //item代表每一个元素
+       //           crashCoin(item);
+       //       }
+       //  },100)
+        j++;
+        if(j%20==0){
+            createCoin();
+        }
+        coinDown();
+        for(var it of coinArr){
+            crashCoin(it)
+        }
+        window.requestAnimationFrame(gameStart);
+        /*
+        setInterval基于时间改变
+        requestAnimationFrame基于帧数改变
+        requestAnimationFrame1秒60帧的刷新频率，
+        不会像计时器一样出现卡帧和丢帧的情况，一般用来调用动画，会使画面变得流畅不卡顿
+         */
+    }
+    gameStart();
+    //碰撞检测
+    function crashCoin(xx) {
+        var t= xx.offsetTop+xx.offsetHeight>=pen.offsetTop;
+        var r=pen.offsetLeft+pen.offsetWidth>=xx.offsetLeft;
+        var l=xx.offsetLeft+xx.offsetWidth>=pen.offsetLeft;
+        if(t&&r&&l){
+            //将元素删除
+            xx.remove();
+            var index=coinArr.indexOf(xx);
+            coinArr.splice(index,1);
+        }
+    }
+    //盆的移动
+    pen.onmousedown=function (ev) {
+        var e=ev||event;
+        var w=e.offsetX;
+
+        document.onmousemove=function (en) {
+           var ww=en.clientX;
+
+           pen.style.left=ww-w+'px';
+
+        }
+    };
+    pen.onmouseup=function () {
+       document.onmousemove=null;
+    }
+</script>
+</body>
+</html>

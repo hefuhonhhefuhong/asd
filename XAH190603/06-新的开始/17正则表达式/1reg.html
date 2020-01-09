@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则表达式</title>
+</head>
+<body>
+<script>
+    /*
+    正则表达式
+       用来做字符串的验证方式，正则表达式会规定验证的规则，
+       根据规则我们会得到相应的匹配结果，可以依据匹配结果来完成相关业务的代码
+
+     */
+    var reg=/d/; //正则表达式
+    var str='abcd';
+    console.log(reg.test(str));
+    //匹配数字
+    // var reg1=/\d/;
+    var reg1=/[0,9]/ ;//修改数字区间，只要有一个就为true;
+    var str1='6fsdf5sdfsdfd';
+    console.log(reg1.test(str1));
+
+    //^字符，匹配首字母
+    var reg2=/^[0,9]/i;
+    console.log(reg2.test(str1));
+    //^表示匹配不满足这个条件的 非^【0,9】
+    var reg3=/[^0-9]/;
+    console.log(reg3.test(str1));
+
+    //$表示匹配尾字符
+    var reg4=/b$/;
+    console.log(reg4.test(str1));
+
+    //*表示没有或者有多个，前面的必须要有
+    var reg5=/zo*/;
+    var str2='sszo';
+    console.log(reg5.test(str2));
+
+    //+表示1个以上,两个必须出现
+    var reg6=/bo+/;
+    console.log(reg6.test(str2));
+
+    //？好表示1次或没有
+    var reg7=/o?/;
+    console.log(reg7.test(str2));
+
+    //{n}只能有n个
+    reg8=/a{3}/;
+    var str3='fadhfhsaaaa';
+    console.log(reg8.test(str3));
+
+    //{n,}至少n次，之后不受限制
+    var reg=/a{3,}/;
+    console.log(reg3.test(str3));
+    //{n,m}在n-m次之间
+    var reg10=/a{3,9}/;
+    console.log(reg10.test(str3));
+    //-代表一个范围，【0,9】，【a,z】;
+    //|或的意思
+    var reg12=/a|b/;
+
+    reg20=/垃圾/;
+    var str20='你是垃圾吗';
+    var res=reg20.exec(str20);
+    if(reg20.test(str20)){
+        console.log(res[0]);
+        for(var i in res[0]){
+            str20=str20.replace(res[0][i],'*');
+        }
+    }
+    console.log(str20);
+    /*
+     reg.test
+     判断是否满足正则表达式，一旦满足就返回true
+     reg.exec(str)
+     会返回查找的数组
+     0代表匹配正则的结构
+     index 结果出现的下标
+     input 原始字符串
+
+    reg=>正则表达式
+    str=>将要用来检测的字符串
+    i 不存在大小写
+    g 全局匹配
+    m 多行检测匹配
+     */
+</script>
+</body>
+</html>

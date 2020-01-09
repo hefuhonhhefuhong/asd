@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            width: 100px;
+            height: 70px;
+            border: 1px solid #666666;
+            box-sizing: border-box;
+            display: none;
+            position: absolute;
+
+        }
+        .wrap span{
+           width: 100%;
+            display: block;
+            height: 20px;
+            border: 1px solid #999999;
+        }
+        .wrap span:nth-child (1){
+
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <span> <a href="http://www.baidu.com">百度</a></span>
+    <span><a href="">淘宝</a></span>
+    <span><a href="">京东</a> </span>
+</div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    document.oncontextmenu=function (ev) {
+        var e =ev||window.event;
+        e.preventDefault();
+        wrap.style.display='block';
+        var x =e.clientX;
+        var y=e.clientY;
+          wrap.style.left=x+'px';
+          wrap.style.top=y+'px';
+
+    }
+</script>
+</body>
+</html>

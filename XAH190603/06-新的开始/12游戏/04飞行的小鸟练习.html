@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @keyframes upDown {
+            0%{
+                top:0px;
+            }
+            50%{
+                top:50px
+
+
+            }
+            100%{
+                top: 0px;
+            }
+        }
+        /*鸟换图片*/
+        @keyframes birdWing{
+            0%{
+                background: url("img/bird0.png") 0 0 no-repeat;
+            }
+            100%{
+                background: url("img/bird1.png")0 0 no-repeat;
+            }
+        }
+        /*       !*草地移动*!*/
+        @keyframes grassMove {
+            0%{
+                transform: translateX(0);
+            }
+            100%{
+                transform: translateX(-50%);
+            }
+        }
+        .wrap{
+            width: 343px;
+            height: 480px;
+            background: url("img/bg.jpg")0 0 no-repeat;
+            position: relative;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        /*    开始界面*/
+        .startCon{
+            position: absolute;
+            width: 100%;
+            top: 100px;
+            display: none;
+        }
+        /*    活动的动画*/
+        .startTitle{
+            position: absolute;
+            width: 100%;
+            height: 80px;
+            left: 30px;
+            background: url("img/head.jpg")0 0 no-repeat;
+            animation: upDown 1s  linear infinite;
+        }
+        /*    鸟*/
+        .startBird{
+            width: 40px;
+            height: 26px;
+            background: url("img/bird0.png")0 0 no-repeat;
+            position: absolute;
+            left: 240px;
+            animation: birdWing 2s linear infinite;
+        }
+        /*    开始界面的按钮*/
+        .startBtns{
+            margin-top:150px;
+            display: flex;
+            justify-content: space-around;
+        }
+        /*草地*/
+        .grass{
+            display: flex;
+            justify-content: flex-start;
+            position: absolute;
+            bottom: 43px;
+            animation: grassMove 2s linear infinite;
+        }
+        .bird{
+            width: 40px;
+            height: 26px;
+            background: url("img/bird0.png") 0 0 no-repeat;
+            position: absolute;
+            left: 50px;
+            top: 20px;
+            animation: birdWing 2s linear infinite;
+        }
+        .pipeCon{
+            position: absolute;
+            width: 62px;
+            height:100%;
+            left: 200px;
+            top: 0;
+        }
+
+        .pipeUp,.pipeDown{
+            height: 100px;
+            position: absolute;
+            width: 100%;
+        }
+        .pipeUp{
+            background: url("img/up_mod.png")0 0 repeat;
+            top:0;
+        }
+        .pipeDown{
+            background: url("img/down_mod.png")0 0 repeat;
+            bottom: 57px;
+        }
+        /*    管道头的样式*/
+        .headUp,.headDown{
+            width: 62px;
+            height: 60px;
+            position: absolute;
+        }
+        .headUp{
+            background: url("img/up_pipe.png") 0 0 no-repeat;
+            bottom: 0;
+        }
+        .headDown{
+            background: url("img/down_pipe.png")0 0 no-repeat;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <!--   开始界面-->
+    <div class="startCon">
+        <!--        活动的动画-->
+        <div class="startTitle">
+            <!--          鸟-->
+            <div class="startBird"></div>
+        </div>
+        <!--        按钮-->
+        <div class="startBtns">
+            <img src="img/start.jpg">
+            <img src="img/submit.jpg">
+        </div>
+    </div>
+
+    <!--     草地-->
+    <div class="grass">
+        <img src="img/banner.jpg">
+        <img src="img/banner.jpg">
+    </div>
+    <!--    鸟-->
+    <div class="bird"></div>
+    <!--    管道的样式-->
+    <div class="pipeCon">
+<!--               上管道-->
+<!--        <div class="pipeUp">-->
+<!--            <div class="headUp"></div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        下管道&ndash;&gt;-->
+<!--        <div class="pipeDown">-->
+<!--            &lt;!&ndash;            管道头&ndash;&gt;-->
+<!--            <div class="headDown"></div>-->
+<!--        </div>-->
+ </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+<script>
+    /*
+    1获取元素
+    2鸟下降和上升的函数
+    3动态创建管道
+    4管道移动
+    5碰撞检测
+    6记录得分，展示在页面中
+    7结束游戏，显示在结束界面
+     */
+var timer;
+var timer1;
+    //鸟下降的函数
+    $(function () {
+       var t= $('.bird').offset().top;
+        timer=setInterval(function () {
+           t++;
+           if(t==410){
+               clearInterval(timer);
+           }
+           $('.bird').css({
+               top:t,
+           })
+       },10)
+    });
+    //鸟上升的函数
+   $('.wrap').click(function () {
+       clearInterval(timer);
+     var t=$('.bird').offset().top;
+       t-=2;
+      timer1=setInterval(function () {
+         $('.bird').css({
+             top:t,
+         });
+     },10)
+   })
+</script>
+</body>
+</html>

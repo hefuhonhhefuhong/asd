@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    1对象和数组一样，都是用来存放大量的数据类型，
+    数组会给每个数组赋予下标，用下标操作，对象内的数据以键值对存放，用键来操作
+    2 相同类型，操作相似的数据一般用数组存放，存储一个相关类型的不同数据类型，一般用对象，对象需要准确的知道键值，数组不需要、
+    3数组和对象可以相互融合，互相嵌套
+    JSON格式的数据一般用来进行前后端交互
+    JSON.stringify(obj) 对象转字符串
+    JSON.parse(str)   字符串转对象
+    */
+    var animal={
+          type:"哺乳类",
+          name:"金鱼",
+          legs:0,
+          eyes:2,
+          foods:["小鱼","浮游生物","水"],
+          skill:["游泳","喷水","吃饭","睡觉"]
+    };
+    //寻找需要的数据
+    console.log(animal.foods);
+    //设置修改数据
+    animal.legs=4;
+    console.log(animal);
+    //新增数据
+    animal.children=["孩子1","孩子2"];
+    console.log(animal);
+    //对象转字符串
+    var res = JSON.stringify(animal);
+    console.log(res);
+    //后端传过来的数据字符串转对象
+    var str='{"type":"哺乳类","name":"金鱼","legs":4,"eyes":2,"foods":["小鱼","浮游生物","水"],' +
+        '"skill":["游泳","喷水","吃饭","睡觉"],"children":["孩子1","孩子2"]}';
+    //字符串转对象1
+    var res1=eval('('+str+')');
+    console.log(res1);
+    //字符串转对象2
+    var res2=JSON.parse(str);
+    console.log(res2);
+    // var str3="alert(123)";
+    // eval(str3);
+    // console.log(JSON.parse(str3))
+    /*
+     eval：遇到脚本语言直接进行解析，并且执行代码
+     JSON.parse:遇见脚本语言直接报错，更加安全
+     */
+</script>
+</body>
+</html>

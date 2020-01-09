@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            background: skyblue;
+            margin: 10px;
+            font-size: 30px;
+            text-align: center;
+            line-height: 200px;
+        }
+    </style>
+</head>
+<body>
+<script>
+    //循环创建元素
+    function createDiv() {
+        for(var i=0;i<20;i++){
+            var newDiv=document.createElement('div');
+            document.querySelector('body').appendChild(newDiv);
+            newDiv.innerText=i;
+
+        }
+    }
+    createDiv();
+    //给文档流添加滚动事件
+    document.onscroll=function () {
+        //获取可是窗口高度
+        //不能动态获取可是窗口高度
+        var windowH=document.documentElement.clientHeight;
+        console.log(windowH);
+        //获取滚动偏移量
+        var scrollNum=document.scrollingElement.scrollTop||document.body.scrollTop||window.pageYOffset;
+        //获取文档流的高度
+        var documentH=document.documentElement.scrollHeight;
+        console.log(documentH);
+        //当页面中没有元素的时候，会获取可视窗口的高度
+        //当页面元素的高度没有超过可视窗口的时候，默认获取可视窗口的高度
+        //可视窗口高度+滚动偏移量==文档流高度
+        if(windowH+scrollNum==documentH){
+            console.log('底部');
+            if(document.querySelectorAll('body div').length<=50){
+                createDiv();
+            }
+        }
+    }
+</script>
+</body>
+</html>

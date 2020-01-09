@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            /*border: 1px solid red;*/
+            display: flex;
+            position: relative;
+            flex-wrap: wrap;
+            margin-left: 30px;
+            text-align: center;
+        }
+        .wrap div{
+            width: 150px;
+            height: 30px;
+            background: yellow;
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-left: 5px;
+
+
+        }
+        .ball{
+            display: block;
+            width: 50px;
+            height: 50px;
+            background: red;
+            position: absolute;
+            top: 300px;
+            border-radius: 50%;
+        }
+        .foot{
+            position: absolute;
+            width: 200px;
+            height: 30px;
+            background: deepskyblue;
+            top: 600px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+<!--    <div class="box"></div>-->
+<!--  <button id="btn"></button>-->
+   <span class="ball"></span>
+    <div class="foot"></div>
+
+
+</div>
+<script>
+//     var wrap=document.querySelector('.wrap');
+//     var ball=document.querySelector('.ball');
+//     var foot=document.querySelector('.foot');
+//     var box=document.querySelector('.box');
+//     var boxArr=[];
+//     var t;
+//     var movex=-1;
+//     var movey=-1;
+//     var timer;
+//     var col=4,row=4;
+//     function rn(x,y) {
+//       return Math.round(Math.random()*(y-x)+x);
+//     }
+//     //鼠标移动
+//     function fn() {
+//        foot.onmousedown=function (ev) {
+//            var e=ev||event;
+//            var w=e.offsetX;
+//            document.onmousemove=function (en) {
+//             var ee=en||event;
+//             var ww=ee.clientX;
+//             foot.style.left=ww-w+'px';
+//            }
+//        }
+//     }
+//     foot.onmouseup=function(){
+//     document.onmousemove=null;
+//     };
+//     fn();
+// //获取可视窗宽度
+// //    function createBox() {
+// //         var num=document.documentElement.clientWidth;
+// //         var numBox=Math.floor(num/150);
+// //         for(var j=0;j<col;j++){
+// //              var box=document.createElement('div');
+// //               boxArr.push(box);
+// //             box.style.top = j * 30 + "px";
+// //             for(var i=0;i<numBox;i++){
+// //                 box.style.width=150+'px';
+// //                 box.style.height=30+'px';
+// //                 box.style.background='#'+String(Math.random()).substr(2,6);
+// //                 // boxArr[i].style.top=+'px';
+// //                 boxArr[i].style.left=150*i+'px';
+// //                 wrap.appendChild(box);
+// //                 boxArr.push(box);
+// //             }
+// //         }
+// //     }
+//     function createBox(aaa) {
+//         // 获取可视窗口的宽度
+//         var xxx = Math.floor(wrap.offsetWidth / 150);
+//         // 循环30个盒子
+//         for (var p = 0; p < aaa; p++) {
+//             // 创建div1标签
+//             var box = document.createElement("div");
+//             wrap.appendChild(box);
+//             box.className = "liediv";
+//             box.style.top = p * 30 + "px";
+//             for (var i = 0; i < xxx; i++) {
+//                 //创建盒子
+//                 var newdiv = document.createElement("div");
+//                 console.log(newdiv)
+//                 newdiv.style.width = 150 + "px";
+//                 newdiv.style.height = 30 + "px";
+//                 newdiv.style.left = i * 150 + "px";
+//                 //将盒子添加到页面中
+//                 box.appendChild(newdiv);
+//                 //给创建的div设置随机的颜色
+//                 newdiv.style.background = "#" + String(Math.random()).substr(2, 5);
+//                 //把新建的div放入数组里面
+//                 boxArr.push(newdiv);
+//             }
+//         }
+//     }
+//     createBox();
+//     console.log(boxArr);
+//     //让方块下降
+//     function move() {
+//         //计时器
+//          tiemr = setInterval(function () {
+//             //获取当前的left值
+//             var nowLeft=ball.offsetLeft;
+//             var nowTop=ball.offsetTop;
+//             //判断是否到达边界、
+//             if(nowLeft==wrap.clientWidth-ball.offsetWidth||nowLeft==0){
+//                 movex*=-1;
+//             }
+//
+//             if(nowTop==0){
+//                 movey*=-1;
+//             }
+//             fn2();
+//             fn1();
+//             ball.style.left=nowLeft + movex + 'px';
+//             ball.style.top=nowTop + movey + 'px';
+//         },10);
+//     }
+//     move();
+//     function fn1() {
+//             for (var i = 0; i < boxArr.length; i++) {
+//                 //获取数组里面div的值
+//                 // console.log(boxArr[i].offsetTop,ball.offsetHeight);
+//                 var t=ball.offsetHeight+ball.offsetTop>=boxArr[i].offsetTop;
+//                 var l=ball.offsetWidth+ball.offsetLeft>=boxArr[i].offsetLeft;
+//                 //下面
+//                 var b=boxArr[i].offsetTop+boxArr[i].offsetHeight>=ball.offsetTop;
+//                 var r=boxArr[i].offsetWidth+boxArr[i].offsetLeft>=ball.offsetLeft;
+//                 if (t && b&& l && r) {
+//                     wrap.removeChild(boxArr[i]);//让从页面消失
+//                     movey*=-1;
+//                     boxArr.splice(i,1);
+//                 }
+//             }
+//
+//     }
+//     function fn2() {
+//         var tt=ball.offsetTop;
+//         var t=ball.offsetHeight+ball.offsetTop>=foot.offsetTop;
+//         var l=ball.offsetWidth+ball.offsetLeft>=foot.offsetLeft;
+//         //下面
+//         var b=foot.offsetTop+foot.offsetHeight>=ball.offsetTop;
+//         var r=foot.offsetWidth+foot.offsetLeft>=ball.offsetLeft;
+//         if(t&&l&&b&&r){
+//             movey *= -1;
+//             ball.style.top= t + movey + 'px';
+//         }
+//     }
+
+</script>
+<script>
+    //获取元素
+    var wrap=document.querySelector('.wrap');
+    var ball=document.querySelector('.ball');
+    var foot=document.querySelector('.foot');
+    var row=4;
+    var vx=-1;
+    var vy=-1;
+    var boxArr=[];
+    //鼠标移动
+    function fn() {
+       foot.onmousedown=function (ev) {
+           var e=ev||event;
+           var w=e.offsetX;
+           document.onmousemove=function (en) {
+            var ee=en||event;
+            var ww=ee.clientX;
+            foot.style.left=ww-w+'px';
+           }
+       }
+    }
+    foot.onmouseup=function(){
+    document.onmousemove=null;
+    };
+    fn();
+    //小球移动
+     function fn1() {
+         var num=document.documentElement.clientWidth;
+         var num1=document.documentElement.clientHeight;
+         var timer=setInterval(function () {
+             var t=ball.offsetTop;
+             var l=ball.offsetLeft;
+             if(l<=0||l>=num){
+                 vx*=-1;
+             }
+             if(t<=0){
+                 vy*=-1;
+             }
+             // if(t>num1){
+             //     alert('结束')
+             // }
+             ball.style.left=l+vx+'px';
+             ball.style.top=t+vy+'px';
+
+             fn3();
+             fn2();
+         },10)
+
+     }
+     fn1();
+    //创建小盒子
+    function createBox() {
+        var num=document.documentElement.clientWidth;
+         var newBox=parseInt(num/150);
+        for(var i=0;i<row;i++){
+            for(var j=0;j<newBox;j++){
+                var box=document.createElement('div');
+                box.style.width = 150 + "px";
+                box.style.height = 30 + "px";
+                box.style.left = j * 150 + "px";
+                box.style.top = i * 150 + "px";
+                box.innerText=i;
+                wrap.appendChild(box);
+                boxArr.push(box);
+                box.style.background='#'+String(Math.random()).substr(2,6);
+            }
+        }
+
+    }
+    createBox();
+    function fn3() {
+            for (var i = 0; i < boxArr.length; i++) {
+                //获取数组里面div的值
+                // console.log(boxArr[i].offsetTop,ball.offsetHeight);
+                var t=ball.offsetHeight+ball.offsetTop>=boxArr[i].offsetTop;
+                var l=ball.offsetWidth+ball.offsetLeft>=boxArr[i].offsetLeft;
+                //下面
+                var b=boxArr[i].offsetTop+boxArr[i].offsetHeight>=ball.offsetTop;
+                var r=boxArr[i].offsetWidth+boxArr[i].offsetLeft>=ball.offsetLeft;
+                if (t && b&& l && r) {
+                    wrap.removeChild(boxArr[i]);//让从页面消失
+                    movey*=-1;
+                    boxArr.splice(i,1);
+                }
+            }
+
+    }
+    function fn2() {
+            var tt=ball.offsetTop;
+            var t=ball.offsetHeight+ball.offsetTop>=foot.offsetTop;
+            var l=ball.offsetWidth+ball.offsetLeft>=foot.offsetLeft;
+            //下面
+            var b=foot.offsetTop+foot.offsetHeight>=ball.offsetTop;
+            var r=foot.offsetWidth+foot.offsetLeft>=ball.offsetLeft;
+            if(t&&l&&b&&r){
+                vy *= -1;
+                ball.style.top= t + vy + 'px';
+                console.log(1)
+            }
+        }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap{
+            width:300px;
+            height: 400px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap"></div>
+</body>
+<script>
+    //双击图片，图片放大为原来的2倍，再次双击缩回原来尺寸
+    //滚轮向上，图片放大，最大放大为原来的3倍
+    //滚轮向下，图片缩小，最小缩小为原来的一半
+
+
+    //滚轮事件兼容
+    var wrap=document.querySelector('#wrap');
+
+    wheelEvent(wrap,function (dir) {
+       if(dir){
+           console.log('向上滚动')
+       } else {
+           console.log('向下滚动')
+       }
+    });
+    function wheelEvent(el,callback) {
+        //1判断浏览器
+        if(el.onmousewheel===null){
+            //非ff
+            el.onmousewheel=function (e) {
+                var e=e||window.event;
+                var dir;
+                if(e.wheelDelta>0){
+                    //向上
+                    dir=true;
+                }else {
+                    //向下
+                    dir=false;
+                }
+                callback(dir);
+            };
+        }else {
+          el.addEventListener('DOMMouseScroll',function (e) {
+              var dir;
+              if(e.detail>0){
+                  //向下
+                  dir=false;
+              }else {
+                  //向上
+                 dir=true;
+              }
+              callback(dir);
+          },false)
+        }
+    }
+</script>
+</html>

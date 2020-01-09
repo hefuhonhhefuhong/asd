@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开关灯初级</title>
+    <style>
+        #wrap{
+            width: 450px;
+            height: 450px;
+            margin: 0 auto;
+        }
+        #wrap div{
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: skyblue;
+            border: 1px solid #333;
+            border-radius: 50%;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrap"></div>
+<script>
+    //获取元素
+    var wrap=document.getElementById('wrap');
+    //小球数组
+    var ballArr=[];
+    //创建div
+    function creatBall() {
+      for(var i=0;i<81;i++){
+          var newDiv=document.createElement('div');
+          //将div放入页面中
+          wrap.appendChild(newDiv);
+          newDiv.innerText=i;
+          ballArr.push(newDiv);
+      }
+    }
+    creatBall();
+    //改变颜色的函数
+    function changeBg(xx) {
+        //获取元素原来的样式
+        var bg=getComputedStyle(xx).backgroundColor;
+        //判断颜色，进行改变
+        if(bg=="rgb(135, 206, 235)"){
+            xx.style.background='red';
+        }else {
+            xx.style.background='skyblue';
+        }
+    }
+    //循环元素的数组，绑定点击事件
+    for(var j=0;j<ballArr.length;j++){
+        //给每个元素绑定点击事件
+        ballArr[j].onclick=function () {
+            //点击的时候切换背景颜色
+            //this指向谁调用指谁
+            changeBg(this);
+            var index=ballArr.indexOf(this);
+            //去除最左边的元素，其他元素都可以通过减1获取左边的元素
+            if(index%9!==0){
+                changeBg(ballArr[index-1]);
+            }
+            //除过最右边
+            if((index+1)%9!==0){
+                changeBg(ballArr[index+1]);
+            }
+            //除过第一行
+            if(index>=9){
+                changeBg(ballArr[index-9]);
+            }
+            if(index<=71){
+                changeBg(ballArr[index+9]);
+            }
+
+        }
+    }
+//寻找左右
+
+</script>
+</body>
+</html>

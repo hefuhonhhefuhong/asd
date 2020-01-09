@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap{
+            width: 300px;
+            box-shadow: 1px 1px 5px blue;
+            margin: 0 auto;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 20px;
+            /*font-family: "Sakkal Majalla";*/
+        }
+        #top{
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+        #bigFont{
+            font-size: 300px;
+            font-weight: bold;
+        }
+        #tips{
+            margin: 30px 0;
+            text-align: left;
+        }
+        #smallFont{
+            justify-content: space-between;
+        }
+        #smallFont>span{
+            margin: 5px 10px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="top">
+        <div id="time">倒计时：20s</div>
+        <div id="score">得分:0</div>
+    </div>
+    <div id="bigFont"></div>
+    <div id="tips">
+        根据上面字的颜色，从下面选择正确的字，选择正确自动开始计时
+    </div>
+    <div id="smallFont"></div>
+</div>
+<script>
+    var time=document.getElementById('time');
+    var score=document.getElementById('score');
+    var bigFont=document.getElementById('bigFont');
+    var smallFont=document.getElementById('smallFont');
+    var fontArr=['黄','红','蓝','粉','黑'];//字的数组
+    var colorArr=['yellow','red','blue','pink','black'];
+    var smallFontArr=[];//小字数组
+    var countDow=20;//倒计时
+    var scoreNum=0;//得分
+    var timer;//计时器
+    var flag=true;//旗帜
+    //分装一个随机数
+    function rn(min,max) {
+       return Math.round(Math.random()*(max-min)+min);
+    }
+    //分装一个随机数组
+    function rnArr() {
+        var arr=[];
+       for(var i=0;i<5;i++){
+           var num = rn(0,4);
+           if(arr.indexOf(num)==-1){
+               arr.push(num);
+           }else {
+               i--;
+           }
+       }
+       return arr;
+    }
+    //创建字的函数
+    function createFont() {
+        //创建大字
+       var a = rn(0,4);//创建字的下标
+        var b=rn(0,4);//随机颜色下标
+        bigFont.innerText=fontArr[a];
+        bigFont.style.color=colorArr[b];
+        var c=rnArr();//小字的数组
+        var d=rnArr();//颜色下标
+       for(var i=0;i<c.length;i++){
+           var newFont=document.createElement('span');
+           smallFont.appendChild(newFont);
+           newFont.innerText=fontArr[c[i]];
+           newFont.style.color=colorArr[d[i]];
+           //将生成的元素放入小字数组中
+           smallFontArr.push(newFont);
+       }
+        console.log(colorArr[d[i]])
+    }
+    createFont();
+    //绑定点击事件
+    function clickFont() {
+       for(var i=0;i<smallFontArr.length;i++){
+           smallFontArr[i].onclick=function () {
+               //点击元素里的文字
+               // this.innerText
+               //字的下标
+              var fIndex= fontArr.indexOf(this.innerText);
+              //页面上大字的颜色
+              // bigFont.style.color
+               //颜色的下标
+               var cIndex=colorArr.indexOf(bigFont.style.color);
+
+               //如果下标相等，说明点对了
+               if(cIndex==fIndex){
+                   //加分
+                   scoreNum++;
+                   //分放入页面中
+                   score.innerText='得分'+scoreNum;
+                 clearPage();
+               }else {
+                   //选错
+                   scoreNum--;
+                   if(scoreNum<0){
+                       scoreNum=0;
+                   }
+                   //分放入页面中
+                   score.innerText='得分'+scoreNum;
+                   //清除页面旧数据，重新生成
+                   // bigFont.innerText='';//打字清空
+                   // smallFont.innerText='';
+                   // smallFontArr=[];//小字元素数组
+                   // //重新生成元素
+                   // createFont();
+                   // //重新点击
+                   // clickFont();
+                   clearPage();
+               }
+               if(flag){
+                   flag=false;
+                   timer=setInterval(function () {
+                       //时间累减
+                       countDow--;
+                       //将时间放入页面
+                       time.innerText='倒计时'+countDow+'s';
+                       //当时间结束
+                       if(countDow<0){
+                           //清除计时器
+                           clearInterval(timer);
+                           //获取当前得分
+                           //弹框显示
+                           alert('你的得分：'+scoreNum+'重新开始');
+                           // timer.innerText=scoreNum+'s';
+                           //改变旗帜
+                           flag=true;
+                           //将页恢复
+                           //分数清0
+                           scoreNum=0;
+                           timer.innerText=scoreNum+'s';
+                           //重新创建页面
+                           // bigFont.innerText='';//打字清空
+                           // smallFont.innerText='';
+                           // smallFontArr=[];//小字元素数组
+                           // //重新生成元素
+                           // createFont();
+                           // //重新点击
+                           // clickFont();
+                           clearPage();
+                       }
+
+                   },1000)
+               }
+           }
+       }
+    }
+    clickFont();
+    function clearPage() {
+        bigFont.innerText='';//打字清空
+        smallFont.innerText='';
+        smallFontArr=[];//小字元素数组
+        //重新生成元素
+        createFont();
+        //重新点击
+        clickFont();
+    }
+
+</script>
+</body>
+</html>

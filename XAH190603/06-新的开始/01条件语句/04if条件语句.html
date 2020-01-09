@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>if</title>
+</head>
+<body>
+
+
+<script>
+    //声明一个变量
+    var a =20;
+     a+3<10;
+
+    /*
+    if(条件){
+    code 运行代码
+    }
+    if条件的运行步走，
+     先判断条件，条件执行之后会返回一个布尔类型的值，当条件为真的时候执行代码，
+     条件为假的时候不进判断语句，代码不执行
+     */
+
+
+    if(a<12){
+        //输出
+        console.log('a小于12')
+    }
+    /*
+    if(条件){
+    代码1
+    }else{
+    代码2
+    }
+    先执行条件，如果条件为true，执行代码1.
+    如果条件为false,执行代码2
+     */
+    if(a<12){
+        console.log('条件为真')
+    }else {
+        console.log('条件为假')
+    }
+
+    /*
+     if(条件1){
+     代码1
+     }else if(条件2){
+     代码2
+     }else if(条件3){
+     代码3
+     }
+     执行条件1，如果条件1为true，执行代码1，如果条件1为false,执行条件2，、
+     如果条件2为true执行代码2，如果以上代码都不满足，则执行else代码
+     */
+    var b =1;
+    if(b>0){
+        console.log('b是一个正数');
+    }else if(b<0){
+        console.log('b是一个负数');
+    }else if(b==0){
+        console.log('b是0');
+    }else {
+        console.log('这不是个数');
+    }
+
+</script>
+</body>
+</html>

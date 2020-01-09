@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            /* height: 100%; */
+            /* background: skyblue; */
+            margin: 0;
+            position: relative;
+        }
+
+        #score,
+        #time,
+        #zui {
+            font-size: 20px;
+            margin: 10px 10px;
+            display: none;
+        }
+
+        .letter {
+            width: 150px;
+            position: absolute;
+            top: -150px;
+        }
+
+        h1 {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            width: 250px;
+            height: 100px;
+            font-size: 50px;
+            color: red;
+            z-index: 10;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div id="score">得分:00</div>
+<div id="time">倒计时:20</div>
+<div id="zui">最高分：0</div>
+<h1>开 始 游 戏</h1>
+</body>
+<script>
+    var body = document.querySelector('body');
+    scoreDiv = document.querySelector('#score');
+    timeDiv = document.querySelector('#time');
+    // zui = document.querySelector("#zui");
+    var h1 = document.querySelector('h1');
+
+    var str = 'abcdefghijklmnABCDEFGHIJKLMN123456789';
+    var arr = str.split('');
+    var newArr = [];
+    var score = 0;
+    var time = 20;
+    console.log(arr);
+
+    function rn(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+    }
+
+
+    h1.onclick = function () {
+        scoreDiv.style.display = 'block';
+        timeDiv.style.display = 'block';
+        zui.style.display = 'block';
+        // body.style.background = 'skyblue';
+        h1.style.display = 'none';
+        begin();
+    };
+
+
+    // 创建字母
+    function create() {
+        var w = body.clientWidth - 150;
+        var letter = document.createElement('div');
+        letter.style.fontSize = rn(100, 200) + 'px';
+        letter.className = 'letter';
+        letter.style.color = 'rgb(' + rn(0, 255) + ',' + rn(0, 255) + ',' + rn(0, 255) + ')';
+        letter.style.transform = 'rotate(' + rn(0, 180) + 'deg)';
+        letter.style.left = rn(0, w) + 'px';
+        letter.innerHTML = arr[rn(0, arr.length - 1)];
+        newArr.push(letter);
+        body.appendChild(letter);
+
+    }
+
+    // 字母掉落
+    function letterMove() {
+
+        for (var i = 0; i < newArr.length; i++) {
+            var t = newArr[i].offsetTop;
+            t += 2;
+            newArr[i].style.top = t + 'px';
+            if (t > document.documentElement.clientHeight - newArr[i].offsetHeight) {
+                newArr[i].remove();
+                newArr.splice(i, 1);
+                i--;
+                score--;
+                scoreDiv.innerHTML = '得分:' + score;
+            }
+        }
+    }
+
+    // 开始
+    function begin() {
+        // zui.innerHTML = "最高分："+localStorage.getItem("userName");
+        var m=localStorage.getItem("userName");
+        if(score>m){
+            zui.innerHTML = "最高分："+localStorage.getItem("userName");
+        }else {
+            zui.innerHTML = "最高分："+score;
+        }
+        var letterTimer = setInterval(function () {
+            create();
+            time--;
+            if (time == 0) {
+                clearInterval(letterTimer);
+                alert('结束');
+            }
+            timeDiv.innerHTML = '倒计时:' + time;
+        }, 1000);
+
+        var downTimer = setInterval(function () {
+            letterMove();
+        }, 10);
+    }
+
+
+
+    // 键盘事件
+    document.onkeypress = function (e) {
+        var e = e || window.event;
+        for (var i = 0; i < newArr.length; i++) {
+            console.log(newArr[i].innerText);
+            if (e.key == newArr[i].innerText) {
+                newArr[i].remove();
+                newArr.splice(i, 1);
+                score++;
+                if (score>localStorage.getItem("name")) {
+                    localStorage.setItem("name",score)
+                    zui.innerHTML = "最高分："+score;
+                }
+                scoreDiv.innerHTML = '得分:' + score;
+                break;
+            }
+            if (i == newArr.length - 1) {
+                score--;
+                scoreDiv.innerHTML = '得分:' + score;
+            }
+
+        }
+    }
+</script>
+
+<html>

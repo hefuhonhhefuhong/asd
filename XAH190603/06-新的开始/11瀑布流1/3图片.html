@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            position: relative;
+            margin: 0 auto;
+        }
+        .wrap img{
+            width: 200px;
+            position: absolute;
+            transition: 1s;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrap"></div>
+<script>
+    //获取元素
+    var wrap=document.querySelector('.wrap');
+    //承接高度的数组
+    var heightArr=[];
+    //创建图片
+    function createImg() {
+        //循环创建图片
+        for(var i=0;i<60;i++){
+        var newImg=document.createElement('img');
+        newImg.src="img/"+i+".jpg";
+        wrap.appendChild(newImg);
+        }
+    }
+    createImg();
+    //获取页面图片的列数
+    function getCol() {
+        //获取可视窗口的宽度
+        var windowsW=document.documentElement.clientWidth-16;
+        //计算列数
+        var colNum=Math.floor(windowsW/220);
+        //给wrap设置宽度
+        wrap.style.width=colNum*220+'px';
+        //给高度数组赋初始值
+        for(var i=0;i<colNum;i++){
+            heightArr.push(0);
+        }
+    }
+    getCol();
+    //获取最小下标的函数
+    function getMinIndex() {
+        var min=heightArr[0];
+        for(var j=0;j<heightArr.length;j++){
+            min=min<heightArr[j]?min:heightArr[j]
+        }
+        return heightArr.indexOf(min)
+    }
+    getMinIndex();
+    //给图片设置top和left值
+    function setPosition() {
+        //获取页面上的图片
+        var imgs=document.querySelectorAll('.wrap img');
+        //循环设置图片的位置
+        for(var i=0;i<imgs.length;i++){
+            //寻找最小下标
+            var minIndex=getMinIndex();
+            //寻找最小的高度
+            var minHeight=heightArr[minIndex];
+            //给Img设置top和left值
+            imgs[i].style.top=minHeight+'px';
+            imgs[i].style.left=220*minIndex+'px';
+            //时时更新高度
+            var imgHeight = imgs[i].offsetHeight;
+             heightArr[minIndex]+=imgHeight+20;
+        }
+    }
+    //img是异步加载过程，需要等图片加载完成之后再执行
+    window.onload=setPosition;
+    window.onresize=function () {
+        heightArr=[];
+        //重新计算页面可以生产的列数
+        getCol();
+        setPosition();
+    }
+
+</script>
+</body>
+</html>

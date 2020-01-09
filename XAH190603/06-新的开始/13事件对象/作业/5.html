@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width: 300px;
+            height: 40px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+  <div class="box"></div>
+   <input type="text" value="" class="inp">
+<script>
+    // var box=document.querySelector('.box');
+    // var inp=document.querySelector('.inp');
+    // var str='sdf fsd ffs df df f';
+    // //创建span
+    // function createSpan() {
+    //     for(var i=0;i<str.length;i++){
+    //         var box1=document.createElement('span');
+    //         box.appendChild(box1);
+    //         box1.innerText=str[i];
+    //     }
+    //     boxes=document.querySelectorAll('span');
+    // }
+    // createSpan();
+    // //给input绑定键盘事件
+    // inp.onkeydown=function (en) {
+    //     var e=en||event;
+    //     var font = e.key;
+    //     var i=inp.value.length;
+    //     if(i>str.length){
+    //         alert('结束')
+    //     }
+    //     if(font==boxes[i].innerText){
+    //         boxes[i].style.color='green';
+    //     }else {
+    //         boxes[i].style.color='red';
+    //     }
+    // }
+</script>
+<script>
+    var box=document.querySelector('.box');
+    var inp=document.querySelector('.inp');
+    var str='df af dj fjs jf';
+    //循环创建
+    function createSpan() {
+            for(var i=0;i<str.length;i++){
+        var box1=document.createElement('span');
+        box.appendChild(box1);
+        box1.innerText=str[i];
+    }
+    boxes=document.querySelectorAll('span');
+    }
+    createSpan();
+    inp.onkeypress=function (ev) {
+       var  e=ev||event;
+       var font=e.key;
+       var i=inp.value.length;
+       if(font==boxes[i].innerText){
+           boxes[i].style.color='red';
+       }else {
+           boxes[i].style.color='blue';
+       }
+
+    }
+</script>
+</body>
+</html>

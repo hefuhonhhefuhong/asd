@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="indexDB.js">
+        add(2,'good',{
+            tel:'miaoshu1',
+            email:'youxiang1',
+            address:'dizhhi',
+        },function(){
+            //tanchutankuangtishi
+            console.log(1);
+        },function(){
+            console.log(0);
+        });
+        //根据主键获取数据
+        getData(2,'good','id',function(){
+            //
+        },function(){
+            //获取失败，做弹框提示
+        });
+        getList(2,'good',function(res){
+
+        },function(){
+            //获取失败，做弹框提示
+        });
+        //LayUI
+        //用户登录注册
+        //各个页面的展示需要判断用户是否登录，如果登录，显示提示信息，不然显示默认信息
+        //购物车页面和逻辑、
+        //订单页面和逻辑
+        //商品列表
+        //放大镜
+        //后台管理系统
+        //展示用户列表，商品列表，订单列表
+        //商品列表需要增删改查
+        //订单列表：修改状态
+    </script>
+</body>
+</html>

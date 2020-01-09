@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            width: 500px;
+            height: 500px;
+            border: 1px solid black;
+            border-radius: 50%;
+            position: relative;
+            background: skyblue;
+        }
+        .wrap div{
+            width: 30px;
+            height: 500px;
+            position: absolute;
+            top: 0;
+            left: 236px;
+            text-align: center;
+
+        }
+        .box3{
+            position: absolute;
+            top: 485px;
+            margin-left: -10px;
+        }
+        #tip{
+            position: absolute;
+            left: 235px;
+
+        }
+        #second{
+            width: 5px;
+            height: 185px;
+            background: red;
+            border: 1px solid blue;
+            position: absolute;
+            top: 66px;
+            left: 5px;
+            transform-origin: center bottom;
+        }
+        #minute{
+            width: 5px;
+            height: 140px;
+            background: green;
+            border: 1px solid blue;
+            position: absolute;
+            top: 110px;
+            left: 5px;
+            transform-origin: center bottom;
+        }
+        #hour{
+            width: 5px;
+            height: 110px;
+            background: blue;
+            border: 1px solid blue;
+            position: absolute;
+            top: 141px;
+            left: 5px;
+            transform-origin: center bottom;
+        }
+        #tip1{
+            width: 20px;
+            height: 20px;
+            background: red;
+            position: absolute;
+            top: 245px;
+            left: 234px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div id="tip">
+        <div id="second"></div>
+        <div id="minute"></div>
+        <div id="hour"></div>
+    </div>
+</div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    var date=new Date();
+    var second=document.querySelector('#second');
+    var minute=document.querySelector('#minute');
+    var hour=document.querySelector('#hour');
+    var num=0;
+    for(var i=1;i<=6;i++){
+        num+=30;
+        var box=document.createElement('div');
+        wrap.appendChild(box);
+        box.style.transform='rotate('+num+'deg'+')';
+        var box1=document.createElement('span');
+          box.appendChild(box1);
+          box1.innerText=i;
+        box1.style.transform="rotate("+175+'deg'+")";
+        var box2=document.createElement('span');
+         box2.className='box3';
+         box.appendChild(box2);
+         box2.innerText=i+6;
+         box2.style.transform="rotate("+175+'deg'+")";
+         if(i==1){
+             box2.innerText=i+6;
+             box2.style.transform="rotate("+320+'deg'+")";
+         }
+    }
+    setInterval(function () {
+        var date=new Date();
+        var nowS=date.getSeconds();
+        var s=nowS*6;
+        var nowM=date.getMinutes();
+        var m=nowM*6;
+        console.log(m)
+        var nowH=date.getHours();
+        var h=nowH*30;
+        second.style.transform="rotate("+s+'deg'+")";
+        minute.style.transform="rotate("+m+'deg'+")";
+        hour.style.transform="rotate("+h+'deg'+")";
+    },1000)
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            border: 1px solid skyblue;
+            padding: 20px;
+            font-size: 30px;
+
+        }
+    </style>
+</head>
+<body>
+<div class="box1">box1
+    <div class="box2">box2
+        <div class="box3">box3
+            <div class="box4">box4
+                <div class="box5">box5</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /*
+    事件流
+    当触发事件给一个元素时，其实等同于触发了父级的事件
+    这个事件相当于从元素本身传递到了window，这个事件传递的过程就称为事件流
+    事件冒泡
+      触发事件的过程是，从这个元素开始，一直向window传递
+      从内向外
+     事件捕获
+       从window对象开始，一直到这个具体的元素
+       从外向内
+       注
+       当事件流中同时存在冒泡和捕获，会先由外向内触发捕获，再由内向外触发冒泡、
+       DOM0级事件，默认冒泡
+       DOM2级，默认冒泡，可通过true改成事件捕获
+       完整写法、
+       元素.addEventListener(event,fn,bol)
+       event元素
+       fn函数
+       bol布尔值
+       事件流由于HTML这种层层包含的结构特点所造成的一种现象
+
+     */
+    var boxes=document.querySelectorAll('div');
+      //绑定事件
+    // boxes[0].onclick=function () {
+    //     console.log(1)
+    // };
+    // boxes[1].onclick=function () {
+    //    console.log(2)
+    // };
+    // boxes[2].onclick=function () {
+    //     console.log(3)
+    // };
+    // boxes[3].onclick=function () {
+    //     console.log(4)
+    // };
+    // boxes[4].onclick=function () {
+    //     console.log(5)
+    // }
+    boxes[0].addEventListener('click',function () {
+        console.log(1)
+    },false)
+    boxes[1].addEventListener('click',function () {
+        console.log(2)
+    },false)
+    boxes[2].addEventListener('click',function () {
+        console.log(3)
+    },true)
+    boxes[3].addEventListener('click',function () {
+        console.log(4)
+    },false)
+    boxes[4].addEventListener('click',function () {
+        console.log(5)
+    },false)
+    //元素.addEventListener(event,fn,bol);
+</script>
+</body>
+</html>

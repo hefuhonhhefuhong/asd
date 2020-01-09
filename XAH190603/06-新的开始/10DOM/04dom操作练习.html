@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            width: 300px;
+            height: 500px;
+            border: 1px solid red;
+            margin: 0 auto;
+            padding: 5px;
+        }
+        .chatBox{
+            border: 1px solid yellow;
+            height: 400px;
+        }
+        .message{
+            border: 1px solid lime;
+            background: lawngreen;
+            margin: 10px;
+            padding: 5px;
+            border-radius: 10px;
+            position: relative;
+            word-wrap: break-word;
+            word-break: normal;
+        }
+        .message span{
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #D9D9D9;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            color: white;
+            border-radius: 5px;
+            /*cursor: none;*/
+        }
+        .imp{
+            /*border: 1px solid black;*/
+            margin-top:40px;
+
+        }
+        textarea{
+            height: 50px;
+            font-size: 20px;
+            resize: none;
+            margin: 0 auto;
+            outline: none;
+        }
+        button{
+            background: #666666;
+            border-radius: 10px;
+            font-size: 20px;
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+<body>
+ <div class="wrap">
+<!--     发送区-->
+     <div class="chatBox">
+<!--         <div class="message">在吗-->
+<!--             <span>x</span>-->
+<!--         </div>-->
+<!--&lt;!&ndash;         <div class="message">在干嘛&ndash;&gt;-->
+<!--             <span>x</span>-->
+<!--         </div>-->
+     </div>
+<!--     填写区-->
+     <div class="imp">
+<!--         文本域-->
+         <textarea></textarea>
+         <button class="btn">发送</button>
+     </div>
+ </div>
+<script>
+    //获取元素
+    var chatBox=document.querySelector('.chatBox');//聊天框
+    var btn=document.querySelector('.btn');//按钮
+    var textArea=document.querySelector('textarea');
+
+     btn.onclick=function () {
+         var text=textArea.value;
+         if(text==''){
+             return;
+         }
+         var box=document.createElement('div');
+         box.className='message';
+         chatBox.appendChild(box);
+         box.innerText=text;
+         textArea.value='';
+         var box1=document.createElement('span');
+           box.appendChild(box1);
+           box1.innerText='x';
+           box1.onclick=function () {
+              this.parentNode.remove();
+           };
+     }
+</script>
+</body>
+</html>

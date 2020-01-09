@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            position: absolute;
+            top: 40px;
+            width: 50px;
+            height: 20px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+ <input type="text" id="inp">
+ <button id="btn">计算</button>
+ <span id="box"></span>
+<script>
+    var inp=document.querySelector('#inp');
+    var btn=document.querySelector('#btn');
+    var box=document.querySelector('#box');
+      btn.onclick=function () {
+        var a = inp.value;
+        if(a%400==0||a%4==0&&a%100!=0){
+           box.innerHTML='闰年'
+        }else {
+           box.innerHTML='平年'
+        }
+      }
+</script>
+
+</body>
+</html>

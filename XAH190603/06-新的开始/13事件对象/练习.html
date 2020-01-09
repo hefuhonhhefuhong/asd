@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            background: url("../12游戏/images/game_bg.jpg");
+            width: 320px;
+            height: 480px;
+            border: 1px solid red;
+            margin:  0 auto;
+            position: relative;
+        }
+        .wolves{
+            position: absolute;
+        }
+        .wolves img{
+            position: absolute;
+        }
+        .scoreDiv{
+            position: absolute;
+            top: 14px;
+            left: 61px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+<!--    狼的容器-->
+    <div class="wolves"></div>
+    <div class="scoreDiv">0</div>
+</div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    var wolves=document.querySelector('.wolves');
+    var scoreDiv=document.querySelector('.scoreDiv');
+    var score=0;
+    var createWolfTime;
+    var posArr = [
+        ['98px','115px'],
+        ['17px','160px'],
+        ['15px','220px'],
+        ['30px','293px'],
+        ['122px','273px'],
+        ['207px','295px'],
+        ['200px','211px'],
+        ['187px','141px'],
+        ['100px','192px']
+    ];
+    //随机数
+    function rn(min,max) {
+        return Math.round(Math.random()*(max-min)+min)
+    }
+    //创建狼
+    function createWolf() {
+        var wolf=document.createElement('img');
+         wolf.type=rn(1,100)>=90?'x':'h';
+         wolf.index=0;
+         wolf.src="images/"+wolf.type+wolf.index+".png";
+         var flag=true;
+         //狼出现的位置,不能让同一个位置同时出现狼
+        while (flag){
+            var index=rn(0,posArr.length-1);
+            //判断是否已经生成狼
+            //获取页面上的所有狼
+            var wolfArr=wolves.children;
+            for(var i=0;i<wolfArr.length;i++){
+                //循环数组，判断页面中的left值是否存在数组中
+                if(wolfArr[i].style.left==posArr[index][0]){
+                    break
+                }
+            }
+            if(i==wolfArr.length){
+                flag=false;
+            }
+        }
+       wolf.style.left=posArr[index][0];
+       wolf.style.top=posArr[index][1];
+       wolves.appendChild(wolf);
+       return wolf;
+    }
+    // createWolf();
+    //让狼移动
+    function moveWolf() {
+        var lang=createWolf();
+        hitWolf(lang);
+        lang.appearTimer=setInterval(function () {
+            lang.index++;
+            lang.src="images/"+lang.type+lang.index+".png";
+            if(lang.index==5){
+                clearInterval(lang.appearTimer);
+                lang.disappearTimer=setInterval(function () {
+                    lang.index--;
+                    lang.src="images/"+lang.type+lang.index+".png";
+                    if(lang.index==0){
+                        clearInterval(lang.disappearTimer);
+                        lang.remove();
+                    }
+                },200)
+            }
+
+        },200)
+    }
+    // moveWolf();
+    //狼出现的计时器
+    function getStart() {
+        createWolfTimer=setInterval(function () {
+           moveWolf()
+        },1000)
+    }
+    getStart();
+    //给狼绑定点击事件
+    function hitWolf(w) {
+        w.flag=true;
+        w.onclick=function () {
+            if(!w.flag){
+                return
+            }
+            //根据狼的类型判断是否加分
+            if(w.type='h'){
+                score+=10;
+            }else {
+                score-=10;
+            }
+            scoreDiv.innerText=score;
+            clearInterval(w.appearTimer);
+            clearInterval(w.disappearTimer);
+            w.index=5;
+            w.hitTimer=setInterval(function () {
+              w.index++;
+              //给图片赋值
+              w.src="images/"+w.type+w.index+".png";
+              if(w.index==9){
+                  clearInterval(w.hitTimer);
+                  w.remove();
+              }
+            },200);
+            w.flag=false;
+        }
+    }
+</script>
+</body>
+</html>

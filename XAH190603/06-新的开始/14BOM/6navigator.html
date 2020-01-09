@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //分装函数
+    function fn(key) {
+
+       // var res=localStorage.href ;
+       var res="https://www.baidu.com/s?username=张三&age=17&height=180&weight=300";
+       var res1=res.substr(24);
+       console.log(res1);
+        var arr=res1.split('&');
+          console.log(res2);
+       //循环
+        for(var i=0;i<arr.length;i++){
+            arr[i]=arr[i].split('=');
+            console.log(res2);
+            //判断
+            if(arr[i][0]==key){
+                return arr[i][1];
+                break;
+            }
+        }
+    }
+    fn("userName");
+    /*
+    location 域名的相关信息
+    navigator 浏览器的相关信息、
+      navigator.appVersion浏览器的版本号
+      appName浏览器的名称
+      language浏览器的语言
+      platform浏览器的使用平台
+      userAgent浏览器的user-agent信息     */
+</script>
+</body>
+</html>

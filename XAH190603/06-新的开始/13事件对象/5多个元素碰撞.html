@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            position: absolute;
+        }
+        .wrap{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        body .box:nth-child(1){
+              width: 100px;
+              height: 100px;
+              background: yellow;
+              top: 600px;
+              left: 30px;
+          }
+        body .box:nth-child(2){
+            width: 100px;
+            height: 100px;
+            background: sienna;
+            top: 10px;
+            left: 300px;
+        }
+        body .box:nth-child(3){
+            width: 100px;
+            height: 100px;
+            background: blueviolet;
+            top: 400px;
+            left: 30px;
+        }
+        body .box:nth-child(4){
+            width: 300px;
+            height: 50px;
+            background: green;
+            top: 200px;
+            left: 400px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrap"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    var box1=document.querySelectorAll('.box');
+     wrap.onmousedown=function (ev) {
+       var e=ev||event;
+       var w=e.offsetX;
+       var h=e.offsetY;
+       document.onmousemove=function (en) {
+           var ev=en||event;
+           var ww=ev.clientX;
+           var hh=ev.clientY;
+           wrap.style.left=ww-w+'px';
+           wrap.style.top=hh-h+'px';
+           fn();
+       }
+     };
+     wrap.onmouseup=function () {
+         document.onmousemove=null;
+     };
+     function fn(){
+         for(var i=0;i<box1.length;i++){
+             var t=wrap.offsetHeight+wrap.offsetTop>=box1[i].offsetTop;
+             var l=wrap.offsetWidth+wrap.offsetLeft>=box1[i].offsetLeft;
+             //下面
+             var b=box1[i].offsetTop+box1[i].offsetHeight>=wrap.offsetTop;
+             var r=box1[i].offsetWidth+box1[i].offsetLeft>=wrap.offsetLeft;
+             if(t&&l&&b&&r){
+                 box1[i].style.background='blue';
+              }
+                 else {
+                 box1[i].style.background='';
+             }
+         }
+     }
+
+</script>
+</body>
+</html>

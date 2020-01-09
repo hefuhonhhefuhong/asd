@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+关系运算符
+  用判断符合来判断左右两边的数据之间的大小，并且会返回运算结果（true、false)
+  == 只判断数值，只要左右相等就返回true
+
+  ===全等、
+  判断数据类型和数值，全都一样返回true
+ != 不等
+ 只判断值是否相等，值一样返回false;值不一样返回true
+ !==全不等
+ 判断数据类型和数据，全都一样返回false,全不一样，返回true
+
+-->
+</body>
+<script>
+    //声明变量
+    var x= 6;
+        y =10;
+       console.log(x>y);
+       //结果
+    var z = x>y;
+    console.log(z);
+    var a ='5';//字符串
+    var b =5;
+    console.log(a==b);
+    console.log(a===b);
+    console.log(a!=b);
+    console.log(a!==b);
+    console.log(x+y<y-x);
+    //算术运算符的优先级高于关系运算符
+    //赋值运算符<关系运算符算术运算符
+    var  c = x+y<y;
+
+    //数字比较
+    console.log('数字比较：'+(10<7))
+    //字符串和数字比较,会将字符串类型转换成数字型
+    console.log('字符串和数子比较'+('15'>7))
+    /*非数字的字符串和数字比较
+       非数字类型的字符串转换时会被转成一个NaN不是一个数字
+       NaN和任何数字比较的时候，无论大小，都返回false;
+     */
+
+    /*
+     数字字符串之间的比较
+     、会将字符串转换成ASCLL码
+     */
+    //非数字字符串比较
+/*
+  会将非数字字符串
+ */
+//null
+    console.log(null==true);
+    console.log('非数字的字符串和数字比较'+('box'<11));
+    console.log('非数字的字符串和数字比较'+('box'>11));
+    //数字字符串之间的比较
+    console.log('数字字符串之间的比较'+('11'<'5'));
+    console.log('数字字符串之间的比较'+('19'>'15'));
+    console.log('5'.charCodeAt());
+    console.log('非数字字符串比较'+('box'<'样才'));
+    console.log('样'.charCodeAt())
+</script>
+</html>

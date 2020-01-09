@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            width: 700px;
+            margin: 0 auto;
+            border: 1px solid red;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+
+        }
+        .wrap li{
+            width: 200px;
+            /*height: 100px;*/
+            /*border: 1px solid red;*/
+            margin-bottom: 20px;
+
+        }
+        .wrap div{
+            height: 100px;
+            text-align: center;
+            /*background: blue;*/
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+  <ul class="wrap">
+      <li ></li>
+      <li ></li>
+      <li ></li>
+  </ul>
+<script>
+    var listArr=document.querySelectorAll('.wrap li');
+    var heightArr=[0,0,0];//承接高度的数组
+    // console.log(listArr)
+    //随机数
+    function rn(min,max) {
+        return Math.round(Math.random()*(max-min)+min);
+    }
+    //寻找数组最小值的函数
+    function getMinIndex() {
+        //寻找最小值
+         var min1 =Math.min(heightArr[0],heightArr[1],heightArr[2]);
+        //根据最小值返回下标
+        return heightArr.indexOf(min1);
+    }
+    //循环创建元素
+    function createDiv() {
+       //循环
+       for(var i=0;i<20;i++){
+           var newDiv=document.createElement('div');
+           //给元素赋下标
+           newDiv.innerText=i;
+           //随机高度
+           var heightNum=rn(100,200);
+           //给元素随机高度
+           newDiv.style.height=heightNum+'px';
+           newDiv.style.lineHeight=heightNum+'px';
+           newDiv.style.background='#'+String(Math.random()).substr(2,6);
+           //开始比较，找出最小的下标
+           var minIndex=getMinIndex();
+           //将生成的div放入页面最矮的一列
+           listArr[minIndex].appendChild(newDiv);
+           //时时更新数组的高度
+           heightArr[minIndex]+=heightNum+20;
+       }
+    }
+    createDiv();
+</script>
+</body>
+</html>

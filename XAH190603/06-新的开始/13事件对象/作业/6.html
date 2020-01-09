@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            list-style: none;
+        }
+        .wrap{
+            width:350px;
+            height:350px;
+            border:1px solid red;
+            position: relative;
+            margin: 100px auto;
+        }
+        .big{
+            width:450px;
+            height: 450px;
+            position: absolute;
+            border: 1px solid red;
+            top:0px;
+            left: 360px;
+            overflow: hidden;
+            display: none;
+        }
+        .small{
+            position: relative;
+        }
+        .mask{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background: rgba(255,255,0,.4);
+            top:0;
+            left: 0;
+            display: none;
+        }
+        .big img{
+            position: absolute;
+        }
+        img{
+            vertical-align: top;
+        }
+        ul li{
+            width: 50px;
+            height: 50px;
+            border: 1px solid red;
+            display: inline-block;
+        }
+        ul li img{
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="small">
+        <img src="../img2/6.jpg">
+        <div class="mask"></div>
+    </div>
+    <ul class="list">
+        <li>
+            <img src="../img2/6.jpg">
+        </li>
+        <li>
+            <img src="../img2/4.jpg">
+        </li>
+        <li>
+            <img src="../img2/1.jpg">
+        </li>
+        <li>
+            <img src="../img2/4.jpg">
+        </li>
+        <li>
+            <img src="../img2/6.jpg">
+        </li>
+    </ul>
+    <div class="big">
+        <img src="../img2/5.jpg">
+    </div>
+</div>
+<script>
+    var wrap = document.querySelector('.wrap');
+    var small = document.querySelector('.small');
+    var big = document.querySelector('.big');
+    var mask = document.querySelector('.mask');
+    var bigImg = big.children[0];
+    var list=document.querySelector('.list');
+    var lists=document.querySelectorAll('.list li');
+    //鼠标移入
+    small.onmouseover = function(){
+        //鼠标移入时遮罩层和大图片出现
+        mask.style.display='block';
+        big.style.display='block';
+    };
+    img=document.querySelector('.small img');
+    console.log(img);
+    list.addEventListener('mousemove',function (eve) {
+        var e=eve||event;
+        if(e.target.tagName=='IMG'){
+            img.src=e.target.src;
+        }
+
+    });
+
+
+    small.onmouseout=function(){
+        mask.style.display='none';
+        big.style.display='none';
+    };
+
+    //鼠标移动
+    small.onmousemove = function(ev){
+        var e = ev || event;
+        console.log(e.clientX);
+        //this.offsetParent:samll的定位父级是wrap,距离子元素最近的定位父级
+        x= e.clientX - this.offsetParent.offsetLeft - mask.offsetWidth/2;
+        y=e.clientY - this.offsetParent.offsetTop - mask.offsetHeight/2;
+        //判断
+        //判断遮罩层在small四周时不能出框
+        if(x<0){
+            x=0
+        }else if(x>small.offsetWidth - mask.offsetWidth){
+            x=small.offsetWidth - mask.offsetWidth;
+        }
+        if(y<0){
+            y=0;
+        }else if(y>small.offsetHeight - mask.offsetHeight){
+            y=small.offsetHeight - mask.offsetHeight;
+        }
+        mask.style.left=x+'px';
+        mask.style.top=y+'px';
+
+        // //大图片的left和top
+        // bigImg.style.left=-x*big.offsetWidth / small.offsetWidth + 'px';
+        // bigImg.style.top=-y*big.offsetHeight / small.offsetHeight + 'px';
+    }
+</script>
+</body>
+</html>

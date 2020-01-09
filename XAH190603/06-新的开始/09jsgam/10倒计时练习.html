@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap{
+            width: 400px;
+            height: 100px;
+            border: 1px solid red;
+            margin: 0 auto;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+        }
+        #box1{
+            width: 100px;
+            height: 100%;
+            border: 1px solid yellow;
+            text-align: center;
+            line-height: 100px;
+
+        }
+        #box2{
+            width: 100px;
+            height: 100%;
+            border: 1px solid yellow;
+            text-align: center;
+            line-height: 100px;
+        }
+        #box3{
+            width: 100px;
+            height: 100%;
+            border: 1px solid yellow;
+            text-align: center;
+            line-height: 100px;
+            z-index: 100;
+        }
+        #box4{
+            width: 100px;
+            height: 100%;
+            border: 1px solid yellow;
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="box1">00</div>
+    <div id="box2">00</div>
+    <div id="box3">00</div>
+    <div id="box4">000</div>
+</div>
+  <button id="btn1">启动</button>
+  <button id="btn2">复位</button>
+  <button id="btn3">计次</button>
+  <button id="btn4">停止</button>
+
+<script>
+    var box1=document.querySelector('#box1');
+    var box2=document.querySelector('#box2');
+    var box3=document.querySelector('#box3');
+    var box4=document.querySelector('#box4');
+
+    var btn1=document.querySelector('#btn1');
+    var btn2=document.querySelector('#btn2');
+    var btn3=document.querySelector('#btn3');
+    var btn4=document.querySelector('#btn4');
+    var ms=0;
+    var second='00';
+    var minute='00';
+    var hour='00';
+    //计算
+    function fn() {
+         var num=0;
+        var timer=setInterval(function () {
+            num+=9;
+            if(num<10){
+                ms='00'+num;
+            }else if(num<100){
+                ms='0'+num;
+            }else if(num<1000){
+                ms=num;
+            }else {
+                num=0;
+                second++;
+                if(second<10){
+                    second='0'+second;
+                }else if(second<60){
+                    second=second;
+                }else {
+                    second=0;
+                    minute++;
+                    if(minute<10){
+                        minute='0'+minute;
+                    }else if(minute<60){
+                        minute=minute;
+                    }else {
+                        minute=0;
+                        hour++;
+                        if(hour<10){
+                            hour='0'+hour;
+                        }  else if(hour<24){
+                            hour=hour
+                        }
+                    }
+                }
+            }
+            box4.innerText=ms;
+            box3.innerText=second;
+            box2.innerText=minute;
+            box1.innerText=hour;
+        },10)
+    }
+    // fn();
+</script>
+</body>
+</html>

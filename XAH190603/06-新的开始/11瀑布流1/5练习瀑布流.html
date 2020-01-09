@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            list-style: none;
+            padding: 20px;
+            display: flex;
+            border: 1px solid red;
+            justify-content: space-between;
+        }
+        .wrap li{
+            width: 210px;
+            list-style:none;
+        }
+        li div{
+            font-size: 50px;
+            text-align: center;
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+  <div class="wrap">
+
+  </div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    var liArr=[];
+    var heightArr=[];
+    //创建li的函数
+    function createLi() {
+        //获取创建li的个数
+       var windons=document.documentElement.clientWidth;
+       var liNum=windons/210;
+       for(var i=0;i<liNum;i++){
+           var newLi=document.createElement('li');
+           wrap.appendChild(newLi);
+           liArr.push(newLi);
+           heightArr.push(0);
+       }
+    }
+    createLi();
+    //随机数
+    function rn(min,max) {
+       return Math.round(Math.random()*(max-min)+min);
+    }
+    //寻找高度数组里最小下标的函数
+    function getMinIndex() {
+        var a=heightArr[0];
+       for(var i=0;i<heightArr.length;i++){
+         a=a>heightArr[i]?heightArr[i]:a;
+       }
+       return heightArr.indexOf(a)
+    }
+    getMinIndex();
+    //创建Div
+    function createDiv() {
+        for(var i=0;i<40;i++){
+            var newDiv=document.createElement('div');
+            newDiv.innerText=i;
+              var heightNum=rn(100,300);
+              newDiv.style.height=heightNum+'px';
+              newDiv.style.lineHeight=heightNum+'px';
+              newDiv.style.background='#'+String(Math.random()).substr(2,6);
+              //高度最小的下标
+            var minIndex=getMinIndex();
+            liArr[minIndex].appendChild(newDiv);
+            heightArr[minIndex]+=heightNum+20;
+
+        }
+    }
+    createDiv();
+    //动态获取可是窗户宽度
+    window.onresize=function () {
+       wrap.innerText='';
+       liArr=[];
+       heightArr=[];
+       createLi();
+       createDiv();
+    }
+</script>
+</body>
+</html>

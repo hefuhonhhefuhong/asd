@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            user-select: none;
+        }
+        .wrap{
+            width:300px;
+            height:590px;
+            border:1px solid #000;
+            overflow: hidden;
+            position: relative;
+            background: skyblue;
+        }
+        .text{
+            width:300px;
+            height:987px;
+            position: absolute;
+            word-wrap:break-word;
+        }
+        .box{
+            width:20px;
+            height:590px;
+            border:1px solid #000;
+            position: fixed;
+            left:309px;
+            top:8px;
+        }
+        .box1{
+            width:20px;
+            height:100px;
+            background: #eee;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="text">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 遥远了千年前的人和事，至今还是那么诱人听闻。风推雨漱早已烟灭了吴越争雄的硝烟残骸，
+        那年月的昼夜曾经有过几许平静?那年候百姓曾经有过几许安宁?
+
+        日月如梭穿越过时空，老了多少代人，可是吴越青山依旧绿，天空依旧蓝，
+        星云依旧璀璨，江河水依旧在奔腾中泛起那些波澜。
+
+        有时候目击到沉鱼落雁，闭月羞花等字眼，无形中即想到古时代的四大美人，
+        更让人嘘唏的是西施的那一生千古传闻。
+
+        那一段平凡而又不平凡的人生，那一段有似爱情而又不似爱情的年轮。
+        不知为什么苍天将天骄佳丽降到人间，却为何又不准其完美她的心愿!是不是天赋神韵，
+        也注定有残缺的一面?
+        为什么一个朝代的兴衰荣辱总要潜在着一个美丽的化身?莫非美人就是江山，江山就是美人?
+        遥远了千年前的人和事，至今还是那么诱人听闻。风推雨漱早已烟灭了吴越争雄的硝烟残骸，
+        那年月的昼夜曾经有过几许平静?那年候百姓曾经有过几许安宁?
+
+        日月如梭穿越过时空，老了多少代人，可是吴越青山依旧绿，天空依旧蓝，
+        星云依旧璀璨，江河水依旧在奔腾中泛起那些波澜。
+
+        有时候目击到沉鱼落雁，闭月羞花等字眼，无形中即想到古时代的四大美人，
+        更让人嘘唏的是西施的那一生千古传闻。
+
+        那一段平凡而又不平凡的人生，那一段有似爱情而又不似爱情的年轮。
+        不知为什么苍天将天骄佳丽降到人间，却为何又不准其完美她的心愿!是不是天赋神韵，
+        也注定有残缺的一面?
+        为什么一个朝代的兴衰荣辱总要潜在着一个美丽的化身?莫非美人就是江山，江山就是美人?
+        遥远了千年前的人和事，至今还是那么诱人听闻。风推雨漱早已烟灭了吴越争雄的硝烟残骸，
+        那年月的昼夜曾经有过几许平静?那年候百姓曾经有过几许安宁?
+
+        日月如梭穿越过时空，老了多少代人，可是吴越青山依旧绿，天空依旧蓝，
+        星云依旧璀璨，江河水依旧在奔腾中泛起那些波澜。
+
+        有时候目击到沉鱼落雁，闭月羞花等字眼，无形中即想到古时代的四大美人，
+        更让人嘘唏的是西施的那一生千古传闻。
+
+        那一段平凡而又不平凡的人生，那一段有似爱情而又不似爱情的年轮。
+        不知为什么苍天将天骄佳丽降到人间，却为何又不准其完美她的心愿!是不是天赋神韵，
+        也注定有残缺的一面?
+        为什么一个朝代的兴衰荣辱总要潜在着一个美丽的化身?莫非美人就是江山，江山就是美人?
+    </div>
+    <div class="box">
+        <div class="box1"></div>
+    </div>
+</div>
+</body>
+<script>
+
+/*
+1计算移动合合子的高度
+2获取对应要计算的高度
+3计算比例
+
+ */
+    //获取元素
+    var wrap  = document.querySelector('.wrap'),
+        text  = document.querySelector('.text'),
+        box = document.querySelector('.box'),
+        box1 = document.querySelector('.box1');
+
+    //给进度条绑定点击事件
+    box1.onmousedown = function (e) {
+        var e = e || window.event;
+        var y = e.clientY - box1.offsetTop;
+        document.onmousemove = function (e) {
+            var e = e || window.event;
+            var minY = e.clientY - y;
+            var max = box.clientHeight - box1.offsetHeight;
+            if(minY <= 0 ){
+                minY = 0;
+            }
+            if(minY >= max){
+                minY = max;
+            }
+            var textTop = (text.offsetHeight-box.offsetHeight) / (box.offsetHeight - box1.offsetHeight);
+            console.log(textTop);
+            box1.style.top = minY + 'px';
+            text.style.top = -(textTop * box1.offsetTop) + 'px';
+        }
+    };
+    document.onmouseup = function () {
+        document.onmousemove = null;
+    };
+    document.onkeydown = function (e) {
+        var e = e || window.event;
+        if(e.keyCode == 38){
+           get();
+        }
+        if(e.keyCode == 40){
+           gets();
+        }
+
+
+    };
+    wheelElvet(wrap,function (der) {
+
+        if(der){
+            get();
+        }else{
+            gets();
+        }
+    });
+
+    function wheelElvet(el,callback) {
+        if(el.onmousewheel === null){
+            el.onmousewheel = function (e) {
+                var e = e || window.event;
+                var der;
+                if(e.wheelDelta > 0){
+                    der = true;
+                }else{
+                    der = false;
+                }
+                callback(der);
+            }
+        }else{
+            el.addEventListener('DOMMouseScroll',function(e){
+                var der;
+                if(e.detail > 0){
+                    der = true;
+                }else{
+                    der = false;
+                }
+                callback(der);
+            },false)
+        }
+    }
+    function get() {
+        var minY = box1.offsetTop;
+        minY -= 10;
+        if(minY <= 0 ){
+            minY = 0;
+        }
+        box1.style.top = minY + 'px';
+        var textTop = (text.offsetHeight-box.offsetHeight) / (box.offsetHeight - box1.offsetHeight);
+        text.style.top = -(textTop * box1.offsetTop) + 'px';
+    }
+    function gets() {
+        var minY = box1.offsetTop;
+        var max = box.clientHeight - box1.offsetHeight;
+        minY += 5;
+        if(minY >= max){
+            minY = max;
+        }
+        box1.style.top = minY + 'px';
+        var textTop = (text.offsetHeight-box.offsetHeight) / (box.offsetHeight - box1.offsetHeight);
+        text.style.top = -(textTop * box1.offsetTop) + 'px';
+    }
+</script>
+</html>

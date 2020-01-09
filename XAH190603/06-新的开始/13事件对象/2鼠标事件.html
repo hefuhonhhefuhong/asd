@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+      <style>
+          .wrap{
+              width: 200px;
+              height: 200px;
+              background: red;
+          }
+      </style>
+</head>
+<body>
+<div class="wrap"></div>
+<script>
+    /*
+    单击onclick
+    双击ondblclick
+    右击菜单 oncontextmenu;
+    按下 onmousedown;
+    抬起 onmouseup;
+    移入 onmouseover
+         onmouseenter
+     移出 onmouseout
+          onmouseleave;
+       移动 onmousemove
+
+     */
+    var btn=document.querySelector('.wrap');
+    // btn.ondblclick=function () {
+    //     btn.style.background='yellow';
+    //     console.log(1)
+    // };
+    // btn.oncontextmenu=function () {
+    //     btn.style.background='yellow';
+    //     console.log(1)
+    // };
+    // btn.onkeydown=function () {
+    //     btn.style.background='yellow';
+    //     console.log(1)
+    // };
+    // btn.onmouseup=function () {
+    //     btn.style.background='yellow';
+    //     console.log(1)
+    // };
+    // btn.onmouseover=function () {
+    //     btn.style.background='yellow';
+    //     console.log(1)
+    // };
+    // btn.onmouseenter=function () {
+    //     btn.style.background='yellow';
+    //     console.log(1)
+    // };
+    // btn.onmouseout=function () {
+    //     btn.style.background='yellow';
+    //     console.log(1)
+    // };
+    // btn.onmouseleave=function () {
+    //     btn.style.background='yellow';
+    //     console.log(1)
+    // };
+    // btn.onmousemove=function () {
+    //     btn.style.background='yellow';
+    //     console.log(1)
+    // }
+    btn.onclick=function (ev) {
+        var e=ev||event;
+        //当前鼠标点击的位置，距离可视窗口的距离
+        console.log('x',e.clientX);
+        console.log('y',e.clientY);
+        //当前鼠标点击的位置，距离文档流的位置
+        console.log(e.pageX,e.pageY);
+        //当前鼠标点击的位置距离当前点击元素的位置
+        console.log(e.offsetX,e.offsetY);
+        //当前鼠标点击的位置，距离设备屏幕的位置
+        console.log(e.screenX,e.screenY);
+
+    }
+</script>
+</body>
+</html>

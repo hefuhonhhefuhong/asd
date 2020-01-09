@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div class="wrap">
+      <p>水水水水</p>
+      我是div
+      <h1>哈哈哈哈哈哈哈</h1>
+      <span>我是span标签</span>
+  </div>
+<script>
+    var a1=document.querySelector('h1');
+    //获取下一个兄弟节点，文本标签
+    console.log(a1.nextSibling);
+    //获取下一个兄弟节点，标签
+    console.log(a1.nextElementSibling);
+    //获取上一个兄弟节点，如果有标签，获取文本标签，如果没有标签，获取文本类容，包含文本标签
+    console.log(a1.previousSibling);
+    //获取上一个兄弟节点，标签
+    console.log(a1.previousElementSibling);
+
+    var a2=document.querySelector('.wrap');
+    //获取最后一个子节点，文本标签
+    console.log(a2.lastChild);
+    //获取最后一个子节点 标签
+    console.log(a2.lastElementChild);
+    //获取第一个子节点，包含文本节点
+    console.log(a2.firstChild);
+    //获取第一个子节点，标签
+    console.log(a2.firstElementChild);
+    //获取所以子元素，子节点的集合，包含所以节点，（文本节点，元素节点 注释）
+    console.log(a2.childNodes);
+    //获取所有子元素的集合，可以用下标来获取相应的元素
+    console.log(a2.children);
+    //获取元素的父节点（获取父元素的所有类容）
+    console.log(a2.parentNode);
+    /*************************************/
+    //创建元素
+    var newD=document.createElement('li');
+    //将元素添加到指定元素中，（从尾部添加）
+    a2.appendChild(newD);
+    //将元素添加到指定元素中，从头部添加
+    a2.prepend(newD);
+
+    //创建一个元素
+    var newD2=document.createElement('mark');
+    newD2.innerText='写字';
+    newD2.className='box1';
+    //在原有基础上新增一个类名
+    newD2.classList.add('newbox');
+    newD2.classList.add('abcd');
+    //在原有基础上删除相应的类名
+    newD2.classList.remove('abcd');
+    console.log(a2.children[1]);
+    //父级.replaceChild(新元素 旧元素）
+    a2.replaceChild(newD2,a2.children[1]);
+    //移除子集元素 ： 父级.removeChild(被移除的元素）
+    a2.removeChild(a2.children[3]);
+</script>
+</body>
+</html>

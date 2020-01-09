@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box1{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            position: absolute;
+            top: 200px;
+            left: 300px;
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            top: 500px;
+            left: 400px;
+        }
+    </style>
+</head>
+<div class="box1"></div>
+<div class="box2"></div>
+<body>
+<script>
+  var box1=document.querySelector('.box1');
+  var box2=document.querySelector('.box2');
+  box1.onmousedown=function (e) {
+      var e=e||window.event;
+      var dx=e.clientX-box1.offsetLeft;
+         dy=e.clientY-box1.offsetTop;
+         document.onmousemove=function (e) {
+             var e=e||window.event;
+             var x=e.clientX-dx;
+                 y=e.clientY-dy;
+             box1.style.left=x+'px';
+             box1.style.top=y+'px';
+         }
+  };
+  document.onmouseup=function () {
+      document.onmousemove=null;
+  }
+</script>
+</body>
+</html>

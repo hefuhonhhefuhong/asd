@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    document.addEventListener("mousewheel",function (ev) {
+        //事件对象
+        var e=ev||window.event;
+        //滚轮方向
+        //文档流向下是正，向下是负值
+        console.log(e.wheelDelta)
+    })
+
+    document.addEventListener("DOMMouseScroll",function (eve) {
+        //火狐
+        //文档流向上是负值，向下是正值
+        var ee=eve||window.event;
+        console.log(ee)
+    })
+    /*
+    滚轮事件
+    火狐 DOMMouseScroll;
+    滚轮方向 e.detail;
+    文档流向上是负值，向下是正值、
+    非火狐
+    滚轮方向 e.wheelDelta;
+   文档流向下是负值，向上是正值
+     */
+</script>
+</body>
+</html>

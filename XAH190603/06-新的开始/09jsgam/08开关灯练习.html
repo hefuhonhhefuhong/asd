@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #wrap div{
+            border: 1px solid red;
+            background: black;
+            display: inline-block;
+            border-radius: 50%;
+            box-sizing: border-box;
+            text-align: center;
+            color: white;
+
+        }
+    </style>
+</head>
+<body>
+<div id="wrap"></div>
+<button id="btn1">初级</button>
+<button id="btn2">中级</button>
+<button id="btn3">高级</button>
+<script>
+//获取元素
+    var wrap=document.querySelector('#wrap');
+    var btn1=document.querySelector('#btn1');
+    var btn2=document.querySelector('#btn2');
+    var btn3=document.querySelector('#btn3');
+    var row=5,col=5;
+    var w=50,h=50;
+    var ballArr=[];
+
+    //获取颜色
+   function changeBg(xx) {
+    var bg=getComputedStyle(xx).backgroundColor;
+    if(bg=="rgb(0, 0, 0)"){
+        xx.style.background='red';
+    }else {
+        xx.style.background='black';
+    }
+}
+    //创建小球
+    function createBall() {
+        wrap.style.width=col*w+'px';
+        for(var i=0;i<row*col;i++){
+            var ball=document.createElement('div');
+            ball.style.width=w+'px';
+            ball.style.height=h+'px';
+            wrap.appendChild(ball);
+            ballArr.push(ball);
+            ball.innerText=i;
+        }
+    }
+    createBall();
+    //循环绑定点击事件
+    function click() {
+        for(var j=0;j<ballArr.length;j++){
+            ballArr[j].onclick=function () {
+                changeBg(this);
+                var index=ballArr.indexOf(this);
+                console.log(index);
+               if(index%col!==0){
+                   changeBg(index-1)
+               }
+              if(index%(col+1)!==0){
+                  changeBg(index+1)
+              }
+              if(index>col){
+                  changeBg(index-col)
+              }
+              if(index<row*col-col){
+                  changeBg(index+col)
+              }
+
+            }
+        }
+    }
+    click();
+    //重置游戏
+    function page() {
+        wrap.innerText='';
+        ballArr=[];
+        createBall();
+        click();
+    }
+    // page();
+    btn1.onclick=function () {
+        row=7;
+        col=7;
+       page();
+    };
+    btn2.onclick=function () {
+        row=8;
+        col=8;
+       page();
+    };
+    btn3.onclick=function () {
+        row=9;
+        col=9;
+       page();
+    }
+</script>
+</body>
+</html>

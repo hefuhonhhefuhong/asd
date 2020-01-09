@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动事件</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background: #00F7DE;
+            border: 1px solid red;
+        }
+        button{
+            position: fixed;
+            bottom: 10px;
+            font-size: 20px;
+            border-radius: 10px;
+            right: 100px;
+            padding: 10px;
+            outline: none;
+        }
+        button{
+           background: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<button>返回顶部</button>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<div class="div"></div>
+<script>
+    //给文档流绑定滚轮事件
+    document.onscroll=function () {
+        //获取滚动偏移量的方法
+        var s=window.pageYOffset;
+        // console.log(s);
+        //兼容safri
+        var s2=document.body.scrollTop;
+        // console.log(s2);
+        //兼容谷歌firefox
+        var s3=document.documentElement.scrollTop;
+        console.log(s3);
+    };
+    var btn=document.querySelector('button');
+    var scrollNum;//滚动偏移量
+     //当页面滚动偏移量大于300的时候出现
+    document.onscroll=function () {
+        //兼容
+        scrollNum=document.body.scrollTop||document.documentElement.scrollTop||window.pageYOffset;
+        if(scrollNum>500){
+            btn.style.display='block';
+        }else {
+            btn.style.display='none';
+        }
+    };
+    //给按钮绑定点击事件
+    btn.onclick=function () {
+       //防止计时器叠加
+        if(flag){
+            flag=false;
+            var timer=setInterval(function () {
+                scrollNum-=10;
+                if(document.documentElement.scrollTop){
+                    document.documentElement.scrollTop=scrollNum;
+                }else if(document.body.scrollTop){
+                    document.body.scrollTop=scrollNum;
+                }else {
+                    window.pageYOffset=scrollNum;
+                }
+                if(scrollNum<=0){
+                    clearInterval(timer)
+                }
+            },10);
+            flag=true;
+        }
+
+    }
+    /*
+    onscroll事件在滚动时会被触发
+     兼容所以浏览器的滚动偏移量获取方法、
+     document.documentElement.scrollTop;
+     document.body.scrollTop;
+     window.pageYOffest
+    滚动偏移量
+    当页面类容过多，进行滚动时，超出可视窗口的类容高度就是滚动高度
+     */
+</script>
+</body>
+</html>

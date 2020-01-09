@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="box"></div>
+</div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    var box=document.querySelector('.box');
+    //event事件对象
+    //type属性 返回string,表示当前事件类型
+    //wrap.onclick=function(e){
+    // var e = e || window.event;
+    console.log(e.type);
+    }
+    //target属性，返回正正出发当前事件的元素
+    //存在兼容问题，ie9以下没有target属性
+    wrap.onclick=function (e) {
+      var e=e||window.event;
+      //兼容写法
+        var el=e.target||e.srcElement;
+
+    };
+    box.onclick=function () {
+        console.log('box');
+        console.log(e.target);
+    }
+</script>
+</body>
+</html>

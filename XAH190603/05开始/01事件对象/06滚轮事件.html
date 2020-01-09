@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap{
+            width: 400px;
+            height: 4000px;
+            background: yellow;
+
+        }
+    </style>
+</head>
+<body>
+<div id="wrap"></div>
+</body>
+<script>
+    var wrap=document.querySelector('#wrap');
+    //滚轮事件的类型
+    //onmousewheel当鼠标滚轮在元素上滚动时触发
+    wrap.onmousewheel=function (e) {
+        var e = e||window.event;
+        //对滚轮事件的应用主要是通过判断滚轮滚动的方向，来做对应的逻辑操作
+        //滚轮的滚动信息存储在滚轮事件的事件对象中
+        //通过事件的wheelDelta来判断滚轮滚动的方向、
+        console.log(e.wheelDelta);
+        //当滚轮向上滚动为正值，当滚轮向下滚动为负值
+    };
+    //滚轮事件在FF浏览器上存在兼容问题，FF上的DOM并没有onmousewheel属性
+    //FF浏览器滚轮事件的事件类型是DOMMScroll，这个事件需要通过DOM2级来绑定
+    wrap.addEventListener('DOMMouseScroll',function (e) {
+        var e=e||window.event;
+        //ff浏览器上滚轮事件的事件对象中并没有wheelDelta属性，读取滚轮滚动的方向需要的属性是detail
+        console.log(e.wheelDelta);
+        //当滚轮向上滚动为负值，当滚轮向下滚动为正值，和非ff浏览器中刚好相反的
+    },false)
+</script>
+</html>

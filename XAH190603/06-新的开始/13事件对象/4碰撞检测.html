@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+        .box1{
+            background: yellow;
+            top: 0;
+            left: 0;
+        }
+        .box2{
+            background: red;
+            top: 600px;
+            left: 500px;
+        }
+    </style>
+</head>
+<body>
+ <div class="box1"></div>
+ <div class="box2"></div>
+<script>
+    var box1=document.querySelector('.box1');
+    var box2=document.querySelector('.box2');
+    box1.onmousedown=function (ev) {
+        var e=ev||event;
+        //鼠标距离元素边框的距离
+        var w=e.offsetX;
+        var h=e.offsetY;
+        //给文档流绑定鼠标移动事件
+        document.onmousemove=function (en) {
+            var ee=en||event;
+            //鼠标距离可视窗口的距离
+            var ww=ee.clientX;
+            var hh=ee.clientY;
+            box1.style.left=ww-w+'px';
+            box1.style.top=hh-h+'px';
+            //碰撞检测
+            //上
+            var t=box1.offsetHeight+box1.offsetTop>=box2.offsetTop;
+            var l=box1.offsetWidth+box1.offsetLeft>=box2.offsetLeft;
+            //下面
+            var b=box2.offsetTop+box2.offsetHeight>=box1.offsetTop;
+            var r=box2.offsetWidth+box2.offsetLeft>=box1.offsetLeft;
+            if(t&&l&&b&&r){
+                box1.style.top=2+'px';
+            }else {
+                box2.style.background='red';
+            }
+        };
+    };
+    box1.onmouseup=function () {
+        //取消移动事件
+    document.onmousemove=null;
+    }
+</script>
+</body>
+</html>

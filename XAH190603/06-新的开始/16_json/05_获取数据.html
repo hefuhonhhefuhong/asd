@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<body>
+    <script>
+        // 打开数据库
+        var req = indexedDB.open('XAH190603', 1);
+        //如果打开成功就去获取数据
+        req.onsuccess = function(e) { 
+            var db = e.target.result;//数据库操作对象
+            var trans = db.transaction(['goodList'], 'readwrite');// 打开表格
+            var store = trans.objectStore('goodList');
+            //表格操作对象
+            var arr = [];
+            store.openCursor().onsuccess = function(ev) {
+                var flag = ev.target.result;
+                if(flag) {
+                    arr.push(flag.value);//每次读取的结果
+                    flag.continue();//继续读取下一次的数据
+                } else{
+                    console.log(arr);//读取结束
+                }
+            };
+        };
+    </script>
+</body>
+</html>

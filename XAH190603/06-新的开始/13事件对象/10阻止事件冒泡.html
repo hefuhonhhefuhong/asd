@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            border: 2px solid red;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="box1">box1
+    <div class="box2">box2</div>
+</div>
+<script>
+    var boxes=document.querySelectorAll('div');
+
+    boxes[0].onclick=function () {
+        console.log(1)
+    };
+    boxes[1].onclick=function (ev) {
+       var e=ev||window.event;
+       //ie
+        console.log(2)
+        if(document.attachEvent){
+            window.event.cancelBubble=true;
+            return;
+
+        }
+        //其他
+        e.stopPropagation();
+    }
+
+</script>
+</body>
+</html>

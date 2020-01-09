@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+        .wrap{
+            width: 343px;
+            height: 480px;
+            background: url("img/bg.jpg");
+            margin: 0 auto;
+            overflow: hidden;
+        }
+       #sEl{
+           text-align: center;
+           margin-top: 50px;
+           font-size: 0;
+           position: relative;
+           z-index: 1000;
+       }
+        #startBtn{
+            position: absolute;
+            left: calc(50% - 42.5px);
+            top:300px;
+        }
+    /*    开始动画*/
+        #head{
+            width: 236px;
+            height: 77px;
+            position: absolute;
+            top:140px;
+            left: calc(50% - 118px);
+            animation: head 1s infinite ;
+        }
+
+        #headBird{
+            width: 40px;
+            height: 26px;
+            background: url("img/bird0.png");
+            position: absolute;
+            right: 0;
+            top: calc(50% - 13px);
+            animation: fly 1s infinite;
+        }
+        @keyframes head {
+           0%{
+               top: 140px;
+           } 80%{
+            top: 180px;
+                        }100%{
+            top: 185px;
+                                                 }
+
+        }
+
+        /*#banner{*/
+        /*    width: 200%;*/
+        /*    height: 14px;*/
+        /*    position: absolute;*/
+        /*    font-size: 0;*/
+        /*    bottom: 10px;*/
+        /*    animation: banner 1s linear infinite;*/
+        /*}*/
+        @keyframes banner {
+            from{
+                left: 0;
+            }to{
+            left: -100%;
+                         }
+        }
+        @keyframes fly {
+           from{
+               background: url("img/bird0.png");
+           } to{
+            background: url("img/bird1.png");
+                        }
+        }
+        .bird{
+            width: 40px;
+            height: 30px;
+            position: absolute;
+            left: 40px;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div id="sEl">
+       <img src="img/0.jpg" >
+        <img src="img/0.jpg">
+    </div>
+    <img src="img/start.jpg" id="startBtn">
+    <div id="head">
+        <img src="img/head.jpg">
+        <div id="headBird"></div>
+    </div>
+    <div id="banner">
+        <img src="img/banner.jpg">
+        <img src="img/banner.jpg">
+    </div>
+</div>
+</body>
+<script>
+    //获取要操作的元素
+    //得分元素
+    var ss=document.querySelectorAll('#sEl>img');
+    //开始动画
+    var head=document.querySelector('#head');
+    //开始按钮
+    var sbtn=document.querySelector('#startBtn');
+    //背景容器
+    var wrap=document.querySelector('.wrap');
+    //路
+    var banner=document.querySelector('#banner');
+
+    //游戏的逻辑，都从点击开始按钮开始
+    sbtn.onclick=function () {
+        //关闭动画
+        head.remove();
+        //按钮消失
+        this.remove();
+        //小鸟出现
+       showbird();
+    };
+    //小鸟相关
+    function showbird() {
+       //创建小鸟
+       var bird=new Image();
+       wrap.appendChild(bird);
+       bird.src='img/down_bird0.png';
+       //给创建的鸟添加类名
+       bird.className='bird';
+       //小鸟下落
+        bird.speed=0.5;
+        //鸟下落的定时器
+        bird.down=setInterval(function (){
+          var t = bird.offsetTop + bird.speed;
+          var max=banner.offsetTop-bird.offsetHeight;
+          if(t<=0){
+              t=0
+          }
+          if(t>=max){
+              t=max;
+              //游戏结束
+              clearInterval(bird.down);
+              banner.style.animationPlayState='paused';
+          };
+            bird.style.top=t+'px';
+            bird.speed+=0.5;
+            if(bird.speed>=0){
+                bird.src='img/up_bird0.png'
+            }
+            //小鸟匀加速运动
+            if(bird.speed>10){
+                bird.speed=10;
+            }
+        },20);
+         //点击鸟的上升
+        wrap.onclick=function (){
+            //小鸟上升
+            bird.speed=-7;
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件委托</title>
+</head>
+<body>
+<nav>
+    <a href="**"></a>
+    <a href="**"></a>
+    <a href="**"></a>
+    <a href="**"></a>
+    <a href="**"></a>
+</nav>
+<div class="menu"></div>
+<!--
+事件委托
+当多个同级元素触发相同的类型事件时，做的操作一样，会选择将事件添加给他的父元素，减少不必要的DOM操作
+利用事件冒泡
+-->
+<script>
+    var nav = document.querySelector('nav');
+    var menu=document.querySelector('.menu');
+    nav.onclick=function (ev) {
+        var e = ev||window.event;
+        if(e.target==this){
+            return
+        }
+        menu.innerHTML=e.target.innerHTML;
+    }
+</script>
+</body>
+</html>

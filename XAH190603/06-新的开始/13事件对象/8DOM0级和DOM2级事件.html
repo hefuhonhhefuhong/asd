@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <button>按钮</button>
+<script>
+    var btn=document.querySelector('button');
+    //DOM 0级
+    btn.onclick=function () {
+        console.log(1)
+    };
+    setTimeout(function () {
+        btn.onclick=function () {
+           console.log('新的点击事件')
+        }
+    },5);
+    //这是dom2级事件
+    btn.addEventListener("click",function () {
+       console.log(2)
+    });
+    setTimeout(function () {
+        btn.onclick=function () {
+           console.log('DOM2级事件')
+        }
+    },5)
+ /*
+ DOM0级事件
+ 给同一个元素绑定事件的时候，后绑定的事件会覆盖先绑定的事件
+ DOM2级事件
+ 给同一个元素先后绑定事件的时候，事件之间不会相互影响
+  */
+</script>
+</body>
+</html>

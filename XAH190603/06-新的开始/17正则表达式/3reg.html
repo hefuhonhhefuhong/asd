@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //reg.test(str)//reg.exec(str);
+    var reg=/1[3-9]\d{9}/g;
+    var str='sdfsdf123456435789jgng';
+    //str.match(reg)会返回符合条件的字符串，如果多个满足，也只返回一个
+    //如果加入g，全局匹配，则会返回所有的满足条件的字符串
+    console.log(str.match(reg));
+    var reg1=/t/g;
+    var str1='sdfsdf1234565789jgn2efds';
+    var res=str1.match(reg1);
+    str1=str1.replace(reg1,'*');
+    // console.log(str1.replace(res,'*'));
+    console.log(str1);
+
+    /*
+    str.match(reg)
+    如果没有符合条件的则返回null；、
+    如果只有一个则返回数组
+     0 匹配的结果
+     index 结果出现的下标
+     input 原始的数据
+     如果正则添加了全局匹配，则会返回所有符合条件的数据，以数组的方式返回
+     */
+</script>
+</body>
+</html>

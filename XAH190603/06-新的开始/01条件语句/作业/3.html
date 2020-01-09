@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            height: 30px;
+            width: 50px;
+            position: absolute;
+            top: 60px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+  分数：<input  type="text" id="inp">
+       <button id="btn">结果</button>
+       <span id="box"></span>
+</body>
+<script>
+    var inp=document.querySelector('#inp');
+     var btn=document.querySelector('#btn');
+     var box=document.querySelector('#box');
+     btn.onclick=function () {
+         var a = inp.value;
+        if(a<=59){
+            box.innerHTML='不及格';
+        }else if(a>=60&&a<69){
+            box.innerHTML='及格'
+        }else if(a>=70&&a<79){
+            box.innerHTML='中等'
+        }else if(a>=80&&a<89){
+            box.innerHTML='良好'
+        }else if(a>=90&&a<100){
+            box.innerHTML='优秀'
+        }
+     }
+</script>
+</html>

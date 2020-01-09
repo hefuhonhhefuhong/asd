@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            width: 200px;
+            height: 200px;
+            background: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+ <div class="wrap"></div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    //给元素绑定按下事件
+    wrap.onmousedown=function (ev) {
+        var e=ev||window.event;
+        //鼠标距离元素边框的位置
+        var offsetX=e.offsetX;
+        var offsetY=e.offsetY;
+        //给文档流绑定鼠标移动事件
+        document.onmousemove=function (evn) {
+            var eve=evn||window.event;
+            //获取鼠标距离可视窗口的距离
+            var mouseX=eve.clientX;
+            var mouseY=eve.clientY;
+            //用鼠标距可视窗口的距离-鼠标距元素边框的距离 设置left和top
+            wrap.style.left=mouseX-offsetX+'px';
+            wrap.style.top=mouseY-offsetY+'px';
+        }
+    };
+    wrap.onmouseup=function () {
+       document.onmousemove=null;
+    }
+</script>
+</body>
+</html>

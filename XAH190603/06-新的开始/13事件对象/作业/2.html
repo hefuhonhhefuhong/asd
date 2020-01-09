@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            border-radius: 50%;
+            position: absolute;
+
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            border-radius: 50%;
+            position: absolute;
+            top: 200px;
+            left: 500px;
+        }
+    </style>
+</head>
+<body>
+<div class="box1"></div>
+<div class="box2"></div>
+<script>
+    var box1=document.querySelector('.box1');
+    var box2=document.querySelector('.box2');
+    box1.onmousedown=function (ev) {
+        var e=ev||event;
+        var w=e.offsetX;
+        var h=e.offsetY;
+        document.onmousemove=function (en) {
+            var ee=en||event;
+            var ww=ee.clientX;
+            var hh=ee.clientY;
+            box1.style.left=ww-w+'px';
+            box1.style.top=hh-h+'px';
+            fn();
+        }
+    };
+    box1.onmouseup=function () {
+        document.onmousemove=null;
+    };
+    function fn() {
+        var x=box1.offsetLeft+box1.offsetWidth/2;
+        var y=box1.offsetTop+box1.offsetWidth/2;
+        var x1=box2.offsetLeft+box2.offsetWidth/2;
+        var y1=box2.offsetTop+box2.offsetWidth/2;
+        var m=Math.sqrt((x1-x)*(x1-x)+(y1-y)*(y1-y));
+        console.log(m);
+        var n=box1.offsetWidth/2+box2.offsetWidth/2;
+        console.log(n);
+        if(m<n){
+            box2.style.background='green';
+        }else {
+            box2.style.background='';
+        }
+    }
+</script>
+</body>
+</html>

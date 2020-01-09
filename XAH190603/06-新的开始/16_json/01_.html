@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+<div class="wrap">
+    <!-- <div class="box">
+        <a href="02.html">
+            <img src="" alt="">
+        </a>
+        <h3>标题</h3>
+        <p>介绍</p>
+        <div>
+            <mark>价格</mark>
+            <span>加入购物车</span>
+        </div>
+    </div> -->
+</div>
+    <script>
+        var wrap = document.querySelector('.wrap')
+        var data = [{
+            img: 'img/1-1.png',
+            name: '红蛋糕',
+            tips: '天真、天然，是这款蛋糕唯一的出发点',
+            price: '298',
+            labels: ['生日']
+
+        }, {
+            img: 'img/1-2.png',
+            name: '黄蛋糕',
+            tips: '天真、天然，是这款蛋糕唯一',
+            price: '398',
+            labels: ['生日','聚会']
+        }, {
+            img: 'img/1-3.png',
+            name: '绿蛋糕',
+            tips: '天真、天然，是这款蛋糕唯',
+            price: '498',
+            labels: ['生日','聚会','人气']
+        }, {
+            img: 'img/1-4.png',
+            name: '黑蛋糕',
+            tips: '天真、天然，是这款',
+            price: '598',
+            labels: ['生日','聚会','人气','甜品']
+        }];
+        function createList() {
+            for (var i = 0; i < data.length; i++) {
+                var p = data[i];
+                var el = document.createElement('div');
+                el.className = 'box';
+                el.innerHTML = `
+                <a href="02.html">
+                    <img src="`+ p.img + `" alt="">
+                </a>
+                <h3>`+ p.name + `</h3>
+                <p>`+ p.tips + `</p>
+                <div class="lab"></div>
+                <div>
+                    <mark>`+ p.price + `</mark>
+                    <span>购物车</span>
+                </div>
+                `;
+                //循环为lab添加子元素
+                var lab = el.querySelector('.lab');
+                for(var j = 0; j < p.labels.length; j++){
+                    lab.innerHTML += '<span>' + p.labels[j] + '</span>';
+                }
+                wrap.appendChild(el);
+                console.log(el);
+            }
+        }
+        createList();
+        // cookie localStorage session sessionStorage 数据库
+        //indexDB 客户端的数据库
+    </script>
+</body>
+
+</html>

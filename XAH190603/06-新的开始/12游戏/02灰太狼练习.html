@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+       .wrap{
+           background: url("images/game_bg.jpg");
+           width: 320px;
+           height: 480px;
+           border: 1px solid red;
+           margin:  0 auto;
+           position: relative;
+       }
+       .wolves{
+           position: absolute;
+       }
+        .wolves img{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+ <div class="wrap">
+     <div class="wolves"></div>
+ </div>
+<script>
+/*
+ 2.游戏运行
+*   （1）时间累减
+*   （2）开始创建狼（img）,狼的状态切换
+        . 随机狼的类型(h > x)，根据类型设置src
+        . 确定狼的位置（同一个时间段内，一个洞只能出现一只狼）
+        . 狼要先上升，再下降
+*   （3）点击图片，点击时判断类型，灰太狼加分，小灰灰减分
+        . 点击狼时，要呈现被击打状态
+*   （4）将分数显示在页面上
+*/
+
+/*
+ * 3.时间减完时，要结束页面中所有的动作，展示游戏结束页面，在游戏结束页页面点击重新开始，
+ * 要展示开始界面，再点击开始界面的开始按钮时，游戏重新开始。
+ */
+var wrap=document.querySelector('.wrap');
+var wolves=document.querySelector('.wolves');
+var posArr = [
+    ['98px','115px'],
+    ['17px','160px'],
+    ['15px','220px'],
+    ['30px','293px'],
+    ['122px','273px'],
+    ['207px','295px'],
+    ['200px','211px'],
+    ['187px','141px'],
+    ['100px','192px']
+];
+var createWolfTimer;
+//随机数
+function rn(min,max) {
+  return Math.round(Math.random()*(max-min)+min) ;
+}
+//开始创建狼
+    function createWolf() {
+       var wolf=document.createElement('img');
+        wolf.type=rn(1,100)>=90?'x':'h';
+        wolf.index=0;
+        //给狼绑定图片路径
+        wolf.src="images/"+wolf.type+wolf.index+".png";
+        var flag=true;
+        while (flag){
+            var index=rn(0,posArr.length-1);
+            //判断是否生成狼
+            //获取页面生成的狼
+            var wolfArr=wolves.children;
+            for(var i=0;i<wolfArr.length;i++) {
+                //页面狼的left值是否存在数组中
+                if (wolfArr[i].style.left == posArr[index][0]) {
+                    break
+                }
+            }
+                if(i==wolfArr.length){
+                    flag=false;
+                }
+            }
+        //给狼设置出现的位置
+        wolf.style.left=posArr[index][0];
+        wolf.style.top=posArr[index][1];
+        //将狼放入页面中
+        wolves.appendChild(wolf);
+        //返回狼
+        return wolf;
+    }
+    // createWolf();
+    //让狼动起来
+    function moveWolf() {
+        //创建一个浪、
+        var lang=createWolf();
+         console.log(lang);
+         lang.appearTimer=setInterval(function () {
+            lang.index++;
+            lang.src="images/"+lang.type+lang.index+".png"
+             if(lang.index==5){
+                 clearInterval(lang.appearTimer);
+                 lang.disappearTimer=setInterval(function () {
+                     lang.index--;
+                     lang.src="images/"+lang.type+lang.index+".png";
+                     if(lang.index==0){
+                         clearInterval(lang.disappearTimer);
+                         lang.remove();
+                     }
+                 },200)
+             }
+        },200)
+    }
+  //创建狼的计时器、
+    function getStart() {
+        createWolfTimer=setInterval(function () {
+            moveWolf();
+        },1000)
+    }
+    getStart();
+</script>
+</body>
+</html>

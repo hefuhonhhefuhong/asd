@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            width: 500px;
+            height: 50px;
+            border-radius: 30px;
+            border: 1px solid yellow;
+            margin: 50px auto;
+        }
+        .box{
+            width: 50px;
+            height: 50px;
+            background: red;
+            border-radius: 50px;
+            position: absolute;
+        }
+        .box3{
+            width: 80px;
+            height: 80px;
+            background: blue;
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body>
+ <div class="wrap">
+     <div class="box"></div>
+ </div>
+ <div class="box3"></div>
+<script>
+    var wrap=document.querySelector('.wrap');
+    var box=document.querySelector('.box');
+    var box3=document.querySelector('.box3');
+    box.onmousedown=function (ev) {
+        var e=ev||event;
+        var w=e.offsetX;
+        var h=e.offsetY;
+        document.onmousemove=function (en) {
+           var  ee=en||event;
+           var ww=ee.clientX;
+           var hh=ee.clientY;
+           if(ww>=wrap.offsetLeft+16&&ww<=wrap.offsetLeft+wrap.offsetWidth-(box.offsetWidth/2)){
+               box.style.left=ww-w+'px';
+               box3.style.left=ww-w+'px';
+           }
+           if(hh>=wrap.offsetTop+16&&hh<=wrap.offsetTop+wrap.offsetHeight-box.offsetHeight){
+               box.style.top=hh-h+'px';
+           }
+            // box3.style.left=ww-w+'px';
+            box3.style.top=hh-h+300+'px';
+
+
+        }
+    };
+    box.onmouseup=function () {
+        document.onmousemove=null
+    };
+
+</script>
+</body>
+</html>

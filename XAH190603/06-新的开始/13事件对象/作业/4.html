@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js跳跳球</title>
+    <style>
+        .wrap {
+            width: 1300px;
+            height: 600px;
+            border: 1px solid skyblue;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            list-style: none;
+
+        }
+
+        .box1 {
+            width: 130px;
+            height: 20px;
+            background: darkseagreen;
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+        }
+
+        .box2 {
+            width: 50px;
+            height: 50px;
+            background: red;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+        }
+
+        .bigdiv {
+            width: 100%;
+        }
+
+        li div {
+            width: 190px;
+            height: 20px;
+            margin: 5px ;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .btn {
+            position: absolute;
+            width: 200px;
+            font-size: 40px;
+            top: 260px;
+            left: 600px;
+            background: skyblue;
+            border: seagreen;
+            border-radius: 10px;
+        }
+
+        .box3 {
+            position: absolute;
+            border: 1px solid red;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(80, 88, 88, 0.5);
+        }
+
+        .btn2 {
+            position: absolute;
+            width: 200px;
+            font-size: 40px;
+            top: 260px;
+            left: 600px;
+            background: seagreen;
+            border: seagreen;
+            border-radius: 10px;
+        }
+
+        .liediv {
+            width: 210px;
+            position: absolute;
+        }
+
+        .box11 {
+            width: 100%;
+        }
+
+        .liediv div {
+            position: absolute;
+            /*margin-left:5px ;*/
+        }
+
+        .btn3 {
+            position: absolute;
+            width: 200px;
+            font-size: 40px;
+            top: 260px;
+            left: 300px;
+            background:yellow;
+            border: seagreen;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<ul class="wrap">
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box11"></div>
+    <div class="box3">
+        <button class="btn">开始游戏</button>
+        <button class="btn2">重新开始</button>
+        <button class="btn3">下一关</button>
+    </div>
+</ul>
+<script>
+    //获取元素
+    var wrap = document.querySelector(".wrap");
+    var box1 = document.querySelector(".box1");
+    var box2 = document.querySelector(".box2");
+    var btn = document.querySelector(".btn");
+    var box3 = document.querySelector(".box3");
+    var btn2 = document.querySelector(".btn2");
+    var box11 = document.querySelector(".box11");
+    var btn3 = document.querySelector(".btn3");
+
+    //声明一个空数组放新建的div
+    var divarr = [];
+    //按下事件
+    box1.onmousedown = function (ev) {
+        //事件对象兼容写法
+        var e = ev || window.event;
+        //获取鼠标到元素边框的位置
+        var sbysX = e.offsetX;
+        //改变颜色
+        box1.style.background = "blue";
+        //给文档流绑定移动事件
+        document.onmousemove = function (en) {
+            //事件对象兼容写法
+            var eve = en || window.event;
+            //获取鼠标到浏览器窗口的距离
+            var sbllqX = eve.clientX;
+            //鼠标到浏览器窗口的距离减去鼠标到元素窗口的距离再减去wrap的left值，求出来元素的左偏移量
+            var lx = sbllqX - sbysX - wrap.offsetLeft;
+            if (lx < 0) {
+                lx = 0;
+            }
+            if (lx > (wrap.offsetWidth - box1.offsetWidth)) {
+                lx = wrap.offsetWidth - box1.offsetWidth;
+            }
+            box1.style.left = lx + "px";
+        }
+    }
+    //鼠标抬起事件
+    box1.onmouseup = function () {
+        //让移动事件消失
+        document.onmousemove = null;
+    }
+
+
+
+    var movey = -1;
+    var timer;
+    function xq() {
+        //控制跳跳球速度的变量
+        var movex = -1;
+        //计时器函数
+        timer = setInterval(function () {
+            //首先获取当前box1的top值和left值
+            var newtop = box2.offsetTop;
+            var newleft = box2.offsetLeft;
+            if (newtop == wrap.clientHeight - box2.clientHeight || newtop == 0) {
+                movey *= -1;
+            }
+            if (newleft == wrap.clientWidth - box2.clientWidth || newleft == 0) {
+                movex *= -1;
+            }
+            box2.style.top = newtop + movey + "px";
+            box2.style.left = newleft + movex + "px";
+            if (newtop == wrap.clientHeight - box2.clientHeight) {
+                clearInterval(timer);
+                alert("游戏结束");
+                box3.style.display = 'block';
+                btn2.style.display = "block";
+
+            }
+            if (divarr.length == 0) {
+                clearInterval(timer);
+                alert("恭喜过关,点击下一关");
+                box3.style.display = 'block';
+                btn3.style.display = "block";
+            }
+            xs();
+            fn();
+        }, 3);
+    }
+
+    // 碰撞jiance
+    function fn() {
+        var t = box1.offsetHeight + box1.offsetTop >= box2.offsetTop;
+        var b = box2.offsetHeight + box2.offsetTop >= box1.offsetTop;
+        var l = box1.offsetWidth + box1.offsetLeft >= box2.offsetLeft;
+        var r = box2.offsetWidth + box2.offsetLeft >= box1.offsetLeft;
+        if (t && b && l && r) {
+            movey *= -1;
+        }
+    }
+
+
+    //创建多数盒子的函数
+    function creatediv(aaa) {
+        // 获取可视窗口的宽度
+        var xxx = parseInt(wrap.offsetWidth / 200);
+        for (var p = 0; p < aaa; p++) {
+            // 创建div1标签
+            var newdiv10 = document.createElement("div");
+            box11.appendChild(newdiv10);
+            newdiv10.className = "liediv";
+            newdiv10.style.top = p * 30 + "px";
+            for (var i = 0; i < xxx; i++) {
+                //创建盒子
+                var newdiv = document.createElement("div");
+                newdiv.style.width = 200 + "px";
+                newdiv.style.height = 30 + "px";
+                newdiv.style.left = i * 200 + "px";
+                //将盒子添加到页面中
+                newdiv10.appendChild(newdiv);
+                //给创建的div设置随机的颜色
+                newdiv.style.background = "#" + String(Math.random()).substr(2, 6);
+                //把新建的div放入数组里面
+                divarr.push(newdiv);
+            }
+        }
+    }
+
+    //让上边消失的函数
+    function xs() {
+        for (var i = 0; i < divarr.length; i++) {
+            //获取数组里面div的值
+            var tt = divarr[i].offsetHeight + divarr[i].parentNode.offsetTop >= box2.offsetTop;
+            var bb = box2.offsetHeight + box2.offsetTop >= divarr[i].parentNode.offsetTop;
+            var ll = divarr[i].offsetWidth + divarr[i].offsetLeft >= box2.offsetLeft;
+            var rr = box2.offsetWidth + box2.offsetLeft >= divarr[i].offsetLeft;
+            if (tt && bb && ll && rr) {
+                movey *= -1;
+                divarr[i].remove();//让从页面消失
+                divarr.splice(i, 1);//删除数组里
+            }
+        }
+    }
+
+    btn2.style.display = "none";//让btn2消失;
+    //点击开始游戏事件
+    btn.onclick = function () {
+        creatediv(1);
+        xq();
+        box3.style.display = "none";
+    };
+    //重新开始事件
+    btn2.onclick = function () {
+        box11.innerHTML = "";
+        xq();
+        divarr = [];
+        creatediv(1);
+        box3.style.display = "none";
+        box2.style.left = 20 + "px";
+        box2.style.top = 540 + "px";
+        box1.style.left = 0 + "px";
+        box1.style.top = 580 + "px";
+    };
+
+    btn3.onclick = function () {
+        box11.innerHTML = "";
+        xq();
+        box2.style.left = 20 + "px";
+        box2.style.top = 540 + "px";
+        creatediv(7);
+        xs();
+        btn3.style.display = "none";
+        box3.style.display = "none";
+        box1.style.left = 0 + "px";
+        box1.style.top = 580 + "px";
+    }
+</script>
+</body>
+
+</html>

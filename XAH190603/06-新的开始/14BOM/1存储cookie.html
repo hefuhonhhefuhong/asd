@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cookie</title>
+</head>
+<body>
+<script>
+    //cookie可以用来存储数据，大小只有4096字节
+    //浏览器一旦退出，这个数据就会被自动清除
+    //通过键值对形式存在数据
+    // 键   值
+    document.cookie="username=张三";
+    document.cookie="年龄=18";
+    //取出数据
+    console.log(document.cookie);
+</script>
+</body>
+</html>

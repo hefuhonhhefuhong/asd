@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 50px;
+            border: 1px solid red;
+            position: absolute;
+            top: 50px;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="inp1">
+<input type="text" id="inp2">
+<input type="text" id="inp3">
+<button id="btn1">最大</button>
+<button id="btn2">最小</button>
+<span id="box"></span>
+<script>
+    var inp1=document.querySelector('#inp1');
+    var inp2=document.querySelector('#inp2');
+    var inp3=document.querySelector('#inp3');
+    var btn1=document.querySelector('#btn1');
+    var btn2=document.querySelector('#btn2');
+    var box=document.querySelector('#box');
+   btn1.onclick=function () {
+       var a=inp1.value-0;
+       var b=inp2.value-0;
+       var c=inp3.value-0;
+       // if(a>b&&a>c){
+       //     box.innerHTML=a;
+       // }else if(b>a&&b>c){
+       //     box.innerHTML=b;
+       // }else {
+       //     box.innerHTML=c;
+       // }
+
+       var res1= a > b ? (a > c ? a : c) : (b > c ? b : c);
+         box.innerHTML=res1;
+
+   };
+   btn2.onclick=function () {
+       var a=inp1.value-0;
+       var b=inp2.value-0;
+       var c=inp3.value-0;
+       // if(a<b&&a<c){
+       //     box.innerHTML=a;
+       // }else if(b<a&&b<c){
+       //     box.innerHTML=b;
+       // }else if(c<a&&c<b){
+       //     box.innerHTML=c;
+       // }
+       var res2=a<b?(a<c? a:c):(b>c? c:b);
+       box.innerHTML=res2;
+   }
+</script>
+</body>
+</html>

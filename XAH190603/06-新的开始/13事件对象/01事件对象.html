@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>
+    点击
+</button>
+<script>
+    var btn=document.querySelector('button');
+    //绑定点击事件
+    btn.onclick=function (ev) {
+        //事件对象的兼容写法
+        var e =ev||event;
+        console.log(e);
+    }
+    /*
+    事件对象
+    1js提供的一个对象，当事件被触发时，会自动创建，
+    2事件对象是一个临时性的对象，事件触发产生，触发结束，对象会被销毁，下一次的创建会产生一个新的对象
+    3事件对象中包含事件触发的时候，产生的一系列可以被使用的数据，比如键盘状态，鼠标位置；
+     */
+</script>
+</body>
+</html>

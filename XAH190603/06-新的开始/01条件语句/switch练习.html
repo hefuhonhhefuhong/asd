@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #result{
+            display: inline-block;
+            border: 1px solid yellow;
+            width: 50px;
+            height: 30px;
+            vertical-align: bottom;
+        }
+        input{
+            border: 1px solid red;
+        }
+        button{
+            border: 1px solid greenyellow;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+数值1<input type="text" id="num1">;
+数值2<input type="text" id="num2">;
+<div>
+    <button id="btn1">+</button>
+    <button id="btn2">-</button>
+    <button id="btn3">*</button>
+    <button id="btn4">/</button>
+</div>
+<button id="btn5">等于</button>
+结果<span id="result"></span>
+
+ <script>
+     //获取元素
+    var num1=document.querySelector('#num1')
+     var num2=document.querySelector('#num2')
+     //获取按钮
+     var btn1=document.querySelector('#btn1');//加
+     var btn2=document.querySelector('#btn2');//减
+     var btn3=document.querySelector('#btn3');//陈
+     var btn4=document.querySelector('#btn4');//除
+     var btn5=document.querySelector('#btn5');//等于
+     //获取结果
+     var res=document.querySelector('#result');
+     //给所有的运算符绑定点击事件
+     var way = "+";//默认的运算方法
+     btn1.onclick=function () {
+         way="+";
+         console.log(way);
+     };
+     btn2.onclick=function () {
+         way="-";
+         console.log(way);
+     };
+     btn3.onclick=function () {
+         way="*";
+         console.log(way);
+     };
+     btn4.onclick=function () {
+         way="/";
+         console.log(way);
+     };
+     //给等号帮点击事件
+     btn5.onclick=function () {
+       //获取input的value值
+         var a =Number(num1.value);
+         var b= Number(num2.value);
+       //根据way的方法进行运算
+         switch (way) {
+            case "+":
+             res.innerHTML=a + b;
+             break;
+             case "-":
+                 res.innerHTML=a - b;
+                 break;
+             case "*":
+                 res.innerHTML=a*b;
+                 break;
+             case "/":
+                 res.innerHTML=a/b;
+         }
+       //将运算结果赋值给span(res)
+     }
+ </script>
+</body>
+</html>

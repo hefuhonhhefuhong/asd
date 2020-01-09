@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="indexDB.js"></script>
+    <script>
+        // 创建一个数据库
+        // openDB(1,function(){
+        //     console.log(1);
+        // },function(){
+        //     console.log(0);
+        // });
+        // //创建数据表及其字段
+        // createTable(2,'good','',[{
+        //     name:'tel',
+        //     unique:true
+        // },{
+        //     name:'email',
+        //     unique:true
+        // },{
+        //     name:'address',
+        //     unique:false
+        // }],function(){
+        //     console.log('成功');
+        // },function(){
+        //     console.log('失败');
+        // });
+        // 向刚刚创建的数据表中添加一些数据
+        // add(2,'good',{
+        //     tel:'描述3',
+        //     email:'邮箱3',
+        //     address:'地址3'
+        // },function(){
+        //     //弹出弹框提示
+        //     console.log(1);
+
+        // },function(){
+        //     console.log(0);
+        // });
+        //根据主键获取数据
+        getData(2,'good',1,function(res){
+            //获取成功，将数据渲染在页面上
+            console.log(res);
+        },function(){
+            //获取失败做弹框提示
+
+        });
+
+        //根据数据表获取数据
+        getList(2,'good',function(res){
+            // 获取成功
+            var data =res;
+            console.log(res);
+        },function(){
+            // 获取失败做弹框提示
+        });
+    </script>
+</body>
+</html>

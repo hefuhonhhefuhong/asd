@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .wrap{
+            width:100px;
+            height:50px;
+            font-size: 50px;
+            font-weight: bolder;
+            margin:auto;
+            color:orange;
+        }
+        .img{
+            width:50px;
+            height:50px;
+            position: absolute;
+            top:0;
+        }
+        .img1{
+            width:100px;
+            height:50px;
+            position: absolute;
+            bottom:0;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    00
+</div>
+<script>
+    var wrap = document.querySelector('.wrap');
+    var score = 0;
+    function rn(){
+        setInterval(function () {
+            var img = new Image();
+            var min = document.documentElement.clientWidth - img.offsetWidth;
+            var max = document.documentElement.clientHeight - img1.offsetHeight;
+            img.className = 'img';
+            document.body.appendChild(img);
+            img.style.left = parseInt(Math.random() * min) + 'px';
+            img.src = '1.png';
+            var t = 0 , b = 0,c = document.documentElement.clientHeight - img.offsetHeight;d = 100;
+            var timer = setInterval(function () {
+                t++;
+                img.style.top = Tween.Linear(t,b,c,d) + 'px';
+                if(img.offsetTop >= max - 25){
+                    if(img.offsetLeft >= img1.offsetLeft && img.offsetLeft <= img1.offsetLeft+100){
+                            score += 10;
+                            wrap.innerHTML = score;
+                            dis = true;
+                    }
+                }
+                if(t == d){
+                    clearInterval(timer);
+                    img.remove();
+                }
+            },20)
+        },1000)
+    }
+    rn();
+    var img1 = new Image();
+    img1.className = 'img1';
+    document.body.appendChild(img1);
+    img1.src = '2.png';
+    var min = document.documentElement.clientWidth - img1.offsetWidth;
+    img1.style.left = parseInt(Math.random() * min) + 'px';
+    document.onkeydown=function (ev) {
+        var e=ev||window.event;
+        var l = img1.offsetLeft;
+        var num=e.keyCode;
+        switch (num) {
+            case 37:
+                img1.style.left=l-60+'px';
+                break;
+            case 39:
+                img1.style.left=l+60+'px';
+        }
+        if(img1.offsetLeft<50){
+
+        }
+    }
+</script>
+<script src="tween/tween.js"></script>
+</body>
+</html>
